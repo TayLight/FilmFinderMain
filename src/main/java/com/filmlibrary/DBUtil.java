@@ -12,9 +12,9 @@ public class DBUtil {
         else {
             try {
                 String driver = "org.postgresql.Driver";
-                String url = "jdbc:postgresql://localhost:5432/FF_test";
+                String url = "jdbc:postgresql://localhost:5432/FilmFinder";
                 String user = "postgres";
-                String password = "password1337";
+                String password = "root";
                 Class.forName(driver);
                 //ConnectionPool connectionPool = ConnectionPool.getInstance();
                 //connection = connectionPool.getConnection();
