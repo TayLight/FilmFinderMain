@@ -1,5 +1,5 @@
 ﻿1.В SQL Shell последовательно выполнить сначала скрипт CreateDatabase.sql, затем InsertData.sql
 2. Поменять настройки подключения к БД в src/main/resources/bd.properties
-3. В папке wildfly-19.0.0.Final перйти в папку in и запустить файл standalone.bat, дождаться запуска сервера
+3. В папке wildfly-19.0.0.Final перйти в папку bin и запустить файл standalone.bat, дождаться запуска сервера
 4. После запуска сервера запустить deploy.bat и дождаться выполнения 
 5. Перейти на адресс в браузере http://localhost:8080/FilmFinder-1.0/                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
