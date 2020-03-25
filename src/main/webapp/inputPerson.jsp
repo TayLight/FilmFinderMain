@@ -1,10 +1,7 @@
 <%@ page import="com.filmlibrary.DAO" %>
-<%@ page import="com.filmlibrary.entities.Film" %>
-<%@ page import="com.filmlibrary.entities.Person" %>
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.filmlibrary.entities.EntityDB" %>
-<%@ page import="com.filmlibrary.entities.Serial" %>
+<%@ page import="com.filmlibrary.entities.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -50,35 +47,95 @@
     <br><br>
 
     <%
-        ArrayList<Film> films = dao.getProjectsByPerson("film",)
         if(request.getParameter("action") != null){
+            ArrayList<EntityDB> listPosition = dao.getAllEntity(new Position());
+            ArrayList<EntityDB> listAllProjectsFilms = new ArrayList<>();
+            ArrayList<EntityDB> listAllProjectsSerial = new ArrayList<>();
+            ArrayList<EntityDB> listProjects = null;
+            ArrayList<Position> positionsFilms = new ArrayList<>();
+            ArrayList<Position> positionsSerials = new ArrayList<>();
+            Position position;
+            for (EntityDB entityDB : listPosition) {
+                position = (Position) entityDB;
+                listProjects = dao.getProjectsByPerson("film", position.getNamePosition(), person.getId(), new Film());
+                for (EntityDB listProject : listProjects) {
+                    listAllProjectsFilms.add(listProject);
+                    positionsFilms.add(position);
+                }
+            }
+            for (EntityDB entityDB : listPosition) {
+                position = (Position) entityDB;
+                listProjects = dao.getProjectsByPerson("serial", position.getNamePosition(), person.getId(), new Serial());
+                for (EntityDB listProject : listProjects) {
+                    listAllProjectsSerial.add(listProject);
+                    positionsSerials.add(position);
+                }
+            }
+
             out.println("Выберите фильмы в которых участвовала личность:");
             out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\"><html>");
             out.println("<table  id=\"centerPlacement\" border=\"1\"><tbody>");
             out.println("<tr><th></th><th>Позиция в фильме</th><th>Название</th><th>Дата выхода</th><th>Оценка</th><th>Длина</th><th></th></tr>");
+            boolean join;
             for (int i = 0; i < listFilm.size(); i++) {
+                join=false;
                 Object o = listFilm.get(i);
                 Film film = (Film) o;
-                out.println("<tr><td><input type=\"checkBox\" name=\"checkFilm" + film.getId() + "\"  value=\"" + film.getId() + "\" " +
-                        "</td><td> <select name=\"positionFilm" + film.getId() + "\"> <option value=\"Актер\">Актер</option><option value=\"Режиссер\">Режиссер</option><option value=\"Продюсер\">Продюсер</option><option value=\"Сценарист\">Сценарист</option></select>" +
-                        "</td><td>" + film.getTitle() +
+                Film film1;
+                Position positionOnFilm = new Position();
+                for(int j = 0; j<listAllProjectsFilms.size(); j++){
+                    film1= (Film) listAllProjectsFilms.get(j);
+                    if(film.getId()==film1.getId()) {
+                        join = true;
+                        positionOnFilm=positionsFilms.get(j);
+                    }
+                }
+                out.print("<tr>" );
+                if(join){
+                        out.print("<td><input type=\"checkBox\" name=\"checkFilm" + film.getId() + "\"  value=\"" + film.getId() + "\" checked>" );
+                        if(positionOnFilm.getId()==1) out.print("</td><td> <select name=\"positionFilm" + film.getId() + "\"> <option value=\"Актер\">Актер</option><option selected value=\"Режиссер\">Режиссер</option><option value=\"Продюсер\">Продюсер</option><option value=\"Сценарист\">Сценарист</option></select>");
+                        else if(positionOnFilm.getId()==2) out.print("</td><td> <select name=\"positionFilm" + film.getId() + "\"> <option selected value=\"Актер\">Актер</option><option value=\"Режиссер\">Режиссер</option><option value=\"Продюсер\">Продюсер</option><option value=\"Сценарист\">Сценарист</option></select>");
+                        else if(positionOnFilm.getId()==3) out.print("</td><td> <select name=\"positionFilm" + film.getId() + "\"> <option  value=\"Актер\">Актер</option><option value=\"Режиссер\">Режиссер</option><option selected value=\"Продюсер\">Продюсер</option><option value=\"Сценарист\">Сценарист</option></select>");
+                        else out.print("</td><td> <select name=\"positionFilm" + film.getId() + "\"> <option value=\"Актер\">Актер</option><option value=\"Режиссер\">Режиссер</option><option value=\"Продюсер\">Продюсер</option><option selected value=\"Сценарист\">Сценарист</option></select>");
+                }
+                else { out.print("<td><input type=\"checkBox\" name=\"checkFilm" + film.getId() + "\"  value=\"" + film.getId() + "\" " );
+                out.print("</td><td> <select name=\"positionFilm" + film.getId() + "\"> <option value=\"Актер\">Актер</option><option value=\"Режиссер\">Режиссер</option><option value=\"Продюсер\">Продюсер</option><option value=\"Сценарист\">Сценарист</option></select>");}
+                        out.print("</td><td>" + film.getTitle() +
                         "</td><td>" + film.getIssueYear() +
                         "</td><td>" + film.getImdb() +
                         "</td><td>" + film.getLength());
             }
             out.println("</tbody></table>");
             out.print("<br><br>");
-
             out.println("Выберите сериалы в которых участвовала личность:");
             out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\"><html>");
             out.println("<table  id=\"centerPlacement\" border=\"1\"><tbody>");
             out.println("<tr><th></th><th>Позиция в сериале</th><th>Название</th><th>Год запуска</th><th>Год окончания</th><th>Эпизоды</th><th>Сезоны</th><th>Оценка</th></tr>");
             for (int i = 0; i < listSerial.size(); i++) {
+                join=false;
                 Object o = listSerial.get(i);
                 Serial serial = (Serial) o;
-                out.println("<tr><td><input type=\"checkBox\" name=\"checkSerial" + serial.getId() + "\"  value=\"" + serial.getId() + "\" >" +
-                        "</td><td> <select name=\"positionSerial" + serial.getId() + "\"> <option value=\"Актер\">Актер</option><option value=\"Режиссер\">Режиссер</option><option value=\"Продюсер\">Продюсер</option><option value=\"Сценарист\">Сценарист</option></select>" +
-                        "</td><td>" + serial.getTitle() +
+                Serial serial1;
+                Position positionOnSerial=new Position();
+                for(int j=0;j<listAllProjectsSerial.size();j++){
+                    serial1= (Serial) listAllProjectsSerial.get(j);
+                    if(serial.getId()==serial1.getId()) {
+                        join = true;
+                        positionOnSerial=positionsSerials.get(j);
+                    }
+                }
+                out.println("<tr>");
+                if(join) {
+                    out.print("<td><input type=\"checkBox\" name=\"checkSerial" + serial.getId() + "\"  value=\"" + serial.getId() + "\" checked>");
+                    if(positionOnSerial.getId()==1) out.print("</td><td> <select name=\"positionSerial" + serial.getId() + "\"> <option value=\"Актер\">Актер</option><option selected value=\"Режиссер\">Режиссер</option><option value=\"Продюсер\">Продюсер</option><option value=\"Сценарист\">Сценарист</option></select>");
+                    else if(positionOnSerial.getId()==2) out.print("</td><td> <select name=\"positionSerial" + serial.getId() + "\"> <option selected value=\"Актер\">Актер</option><option value=\"Режиссер\">Режиссер</option><option value=\"Продюсер\">Продюсер</option><option value=\"Сценарист\">Сценарист</option></select>");
+                    else if(positionOnSerial.getId()==3) out.print("</td><td> <select name=\"positionSerial" + serial.getId() + "\"> <option value=\"Актер\">Актер</option><option value=\"Режиссер\">Режиссер</option><option selected value=\"Продюсер\">Продюсер</option><option value=\"Сценарист\">Сценарист</option></select>");
+                    else out.print("</td><td> <select name=\"positionSerial" + serial.getId() + "\"> <option value=\"Актер\">Актер</option><option value=\"Режиссер\">Режиссер</option><option value=\"Продюсер\">Продюсер</option><option selected value=\"Сценарист\">Сценарист</option></select>");
+                }else {
+                    out.print("<td><input type=\"checkBox\" name=\"checkSerial" + serial.getId() + "\"  value=\"" + serial.getId() + "\" >");
+                    out.print("</td><td> <select name=\"positionSerial" + serial.getId() + "\"> <option value=\"Актер\">Актер</option><option value=\"Режиссер\">Режиссер</option><option value=\"Продюсер\">Продюсер</option><option value=\"Сценарист\">Сценарист</option></select>");
+                }
+                        out.print("</td><td>" + serial.getTitle() +
                         "</td><td>" + serial.getYearStart() +
                         "</td><td>" + serial.getYearFinish() +
                         "</td><td>" + serial.getNumEpisodes() +

@@ -29,14 +29,10 @@
     <br><br>
     <b>Дата рождения:</b> <%= person.getBirthday()%>
     <br><br>
-    <b>Карьера:</b> тут амплуа
-    <br><br>
-    <b>Жанры:</b> тут жанры
-    <br><br>
-    <b>Всего фильмов:</b>
+    <b>Всего проектов:</b>
     <%
         DAO dao = new DAO();
-        out.print(dao.getNumOfProjects("film", person.getId()));
+        out.print(dao.getNumOfProjects("film", person.getId())+dao.getNumOfProjects("serial",person.getId()));
     %>
 </form>
 <%

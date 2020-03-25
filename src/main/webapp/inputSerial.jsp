@@ -3,6 +3,7 @@
 <%@ page import="com.filmlibrary.entities.Person" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.filmlibrary.entities.EntityDB" %>
+<%@ page import="com.filmlibrary.entities.Position" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -41,16 +42,49 @@
 
     <%
         if (request.getParameter("action") != null){
+            ArrayList<EntityDB> listPosition = dao.getAllEntity(new Position());
+            ArrayList<EntityDB> listPersonOnSerial = new ArrayList<>();
+            ArrayList<EntityDB> listProjects;
+            ArrayList<Position> positions = new ArrayList<>();
+            Position position;
+            for (EntityDB entityDB : listPosition) {
+                position = (Position) entityDB;
+                listProjects = dao.getPersonByProject("serial", position.getNamePosition(), serial.getId(), new Person());
+                for (EntityDB listProject : listProjects) {
+                    listPersonOnSerial.add(listProject);
+                    positions.add(position);
+                }
+            }
             out.println("Выберите личностей, которые участвовали в создании сериала:");
             out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\"><html>");
             out.println("<table  id=\"centerPlacement\" border=\"1\"><tbody>");
             out.println("<tr><th></th><th>Позиция</th><th>Имя</th><th>Фамилия</th><th>Дата рождения</th><th>Страна</th></tr>");
+            boolean join;
             for (int i = 0; i < listPerson.size(); i++) {
+                join=false;
                 Object o = listPerson.get(i);
                 Person person = (Person) o;
-                out.println("<tr><td><input type=\"checkBox\" name=\"check" + person.getId() + "\"  value=\"" + person.getId() + "\" >" +
-                        "</td><td> <select name=\"position" + person.getId() + "\"> <option value=\"Актер\">Актер</option><option value=\"Режиссер\">Режиссер</option><option value=\"Продюсер\">Продюсер</option><option value=\"Сценарист\">Сценарист</option></select>" +
-                        "</td><td>" + person.getFirstName() +
+                Person person1;
+                Position positionOnSerial= new Position();
+                for(int j=0;j<listPersonOnSerial.size();j++){
+                    person1= (Person) listPersonOnSerial.get(j);
+                    if(person.getId()==person1.getId()){
+                        join=true;
+                        positionOnSerial=positions.get(j);
+                    }
+                }
+                out.println("<tr>");
+                if(join) {
+                    out.print("<td><input type=\"checkBox\" name=\"check" + person.getId() + "\"  value=\"" + person.getId() + "\" checked >");
+                    if(positionOnSerial.getId()==1) out.print("</td><td> <select name=\"position" + person.getId() + "\"> <option value=\"Актер\">Актер</option><option selected value=\"Режиссер\">Режиссер</option><option value=\"Продюсер\">Продюсер</option><option value=\"Сценарист\">Сценарист</option></select>");
+                    if(positionOnSerial.getId()==2) out.print("</td><td> <select name=\"position" + person.getId() + "\"> <option selected value=\"Актер\">Актер</option><option value=\"Режиссер\">Режиссер</option><option value=\"Продюсер\">Продюсер</option><option value=\"Сценарист\">Сценарист</option></select>");
+                    if(positionOnSerial.getId()==3) out.print("</td><td> <select name=\"position" + person.getId() + "\"> <option value=\"Актер\">Актер</option><option value=\"Режиссер\">Режиссер</option><option selected value=\"Продюсер\">Продюсер</option><option value=\"Сценарист\">Сценарист</option></select>");
+                    if(positionOnSerial.getId()==4) out.print("</td><td> <select name=\"position" + person.getId() + "\"> <option value=\"Актер\">Актер</option><option value=\"Режиссер\">Режиссер</option><option value=\"Продюсер\">Продюсер</option><option selected value=\"Сценарист\">Сценарист</option></select>");
+                }else {
+                    out.print("<td><input type=\"checkBox\" name=\"check" + person.getId() + "\"  value=\"" + person.getId() + "\" >");
+                    out.print("</td><td> <select name=\"position" + person.getId() + "\"> <option value=\"Актер\">Актер</option><option value=\"Режиссер\">Режиссер</option><option value=\"Продюсер\">Продюсер</option><option value=\"Сценарист\">Сценарист</option></select>");
+                }
+                        out.print("</td><td>" + person.getFirstName() +
                         "</td><td>" + person.getLastName() +
                         "</td><td>" + person.getBirthday() +
                         "</td><td>" + person.getCountry());
