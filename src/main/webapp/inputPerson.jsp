@@ -50,6 +50,7 @@
     <br><br>
 
     <%
+        ArrayList<Film> films = dao.getProjectsByPerson("film",)
         if(request.getParameter("action") != null){
             out.println("Выберите фильмы в которых участвовала личность:");
             out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\"><html>");
@@ -58,7 +59,7 @@
             for (int i = 0; i < listFilm.size(); i++) {
                 Object o = listFilm.get(i);
                 Film film = (Film) o;
-                out.println("<tr><td><input type=\"checkBox\" name=\"checkFilm" + film.getId() + "\"  value=\"" + film.getId() + "\" >" +
+                out.println("<tr><td><input type=\"checkBox\" name=\"checkFilm" + film.getId() + "\"  value=\"" + film.getId() + "\" " +
                         "</td><td> <select name=\"positionFilm" + film.getId() + "\"> <option value=\"Актер\">Актер</option><option value=\"Режиссер\">Режиссер</option><option value=\"Продюсер\">Продюсер</option><option value=\"Сценарист\">Сценарист</option></select>" +
                         "</td><td>" + film.getTitle() +
                         "</td><td>" + film.getIssueYear() +

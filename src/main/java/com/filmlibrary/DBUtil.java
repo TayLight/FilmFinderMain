@@ -1,8 +1,11 @@
 package com.filmlibrary;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class DBUtil {
     private static Connection connection = null;
@@ -11,15 +14,14 @@ public class DBUtil {
         if (connection != null) return connection;
         else {
             try {
-                String driver = "org.postgresql.Driver";
-                String url = "jdbc:postgresql://localhost:5432/FilmFinder";
-                String user = "postgres";
-                String password = "root";
+                InputStream foo = DBUtil.class.getClassLoader().getResourceAsStream("db.properties");
+                Properties properties = new Properties();
+                properties.load(foo);
+                String driver = properties.getProperty("driver");
+                String url =properties.getProperty("url");
                 Class.forName(driver);
-                //ConnectionPool connectionPool = ConnectionPool.getInstance();
-                //connection = connectionPool.getConnection();
-                connection = DriverManager.getConnection(url, user, password);
-            } catch (ClassNotFoundException | SQLException e) {
+                connection = DriverManager.getConnection(url,properties);
+            } catch (ClassNotFoundException | SQLException | IOException e) {
                 e.printStackTrace();
             }
             return connection;
