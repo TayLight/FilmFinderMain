@@ -21,13 +21,13 @@ public class Serial implements Serializable, EntityDB {
     private ArrayList<String> columns;
 
     public Serial() {
-        table = "public.serial";
+        table = "serial";
         countColumns = 7;
         addColumns();
     }
 
     public Serial(int id, String title, int yearStart, int yearFinish, int numEpisodes, int numSeasons, double imdb) {
-        table = "public.serial";
+        table = "serial";
         countColumns = 7;
         addColumns();
         this.id = id;
@@ -40,7 +40,7 @@ public class Serial implements Serializable, EntityDB {
     }
 
     public Serial(String title, int yearStart, int yearFinish, int numEpisodes, int numSeasons, double imdb) {
-        table = "public.serial";
+        table = "serial";
         countColumns = 7;
         addColumns();
         this.title = title;

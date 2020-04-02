@@ -22,7 +22,7 @@ public class Person implements Serializable, EntityDB {
     private ArrayList<String> columns;
 
     public Person() {
-        table = "public.person";
+        table = "person";
         countColumns = 5;
         addColumns();
     }
@@ -33,7 +33,7 @@ public class Person implements Serializable, EntityDB {
         this.lastName = lastName;
         this.birthday = birthday;
         this.country = country;
-        table = "public.person";
+        table = "person";
         countColumns = 5;
         addColumns();
     }
@@ -43,7 +43,7 @@ public class Person implements Serializable, EntityDB {
         this.lastName = lastName;
         this.birthday = localDate;
         this.country = country;
-        table = "public.person";
+        table = "person";
         countColumns = 5;
         addColumns();
     }

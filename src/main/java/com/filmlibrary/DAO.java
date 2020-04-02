@@ -6,6 +6,7 @@ import com.filmlibrary.entities.Person;
 
 import javax.swing.text.html.parser.Entity;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class DAO {
@@ -134,6 +135,20 @@ public class DAO {
         return null;
     }
 
+    public EntityDB getTopEntity(EntityDB entityDB){
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery("select * from " + entityDB.getTableName() + " order by id_" + entityDB.getTableName() + " desc limit 1");
+            if (rs.next()) {
+                entityDB = entityDB.getEntity(rs);
+            }
+            return entityDB;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public ArrayList<EntityDB> getProjectsByPerson(String projectType, String position, int entityId, EntityDB entityDB) {
         ArrayList<EntityDB> entities = new ArrayList<>();
         try {
@@ -213,12 +228,11 @@ public class DAO {
     }
 
     public static void main(String[] arg) {
-        DAO dao = new DAO();
-        ArrayList<EntityDB> listPerson = dao.getPersonByProject("serial", "Актер", 1, new Person());
-        for(int i = 0; i < listPerson.size(); i++){
-            System.out.println(listPerson.get(i));
-        }
-
+//        DAO dao = new DAO();
+//        Person newPerson = new Person("лупа", "пупова", LocalDate.now(), "Россия");
+//        dao.addEntity(newPerson);
+//        Person topPerson = (Person) dao.getTopEntity(new Person());
+//        System.out.println(topPerson.getId() + " " + topPerson.getFirstName());
     }
 }
 

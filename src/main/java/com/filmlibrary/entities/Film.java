@@ -20,7 +20,7 @@ public class Film implements Serializable, EntityDB {
     private ArrayList<String> columns;
 
     public Film() {
-        table = "public.film";
+        table = "film";
         countColumns = 5;
         addColumns();
     }
@@ -31,7 +31,7 @@ public class Film implements Serializable, EntityDB {
         this.issueYear = issueYear;
         this.imdb = imdb;
         this.length = length;
-        table = "public.film";
+        table = "film";
         countColumns = 5;
         addColumns();
     }
@@ -41,7 +41,7 @@ public class Film implements Serializable, EntityDB {
         this.issueYear = issueYear;
         this.imdb = imdb;
         this.length = length;
-        table = "public.film";
+        table = "film";
         countColumns = 5;
         addColumns();
     }

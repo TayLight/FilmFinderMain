@@ -11,10 +11,12 @@
             width: 100%;
             border-collapse: collapse;
         }
+
         td, th {
             padding: 4px;
             border: 1px solid #000080;
         }
+
         th {
             background: #000080;
             color: #ffe;
@@ -93,6 +95,16 @@
                             case "Copy":
                                 copyFilm = (Film) dao.getEntityById(Integer.parseInt(request.getParameter("checkBox" + i)), new Film());
                                 dao.addEntity(copyFilm);
+                                Film newFilm = (Film) dao.getTopEntity(new Film());
+                                for (int k = 0; k < listPosition.size(); k++) {
+                                    Position pos = (Position) listPosition.get(k);
+                                    ArrayList<EntityDB> listPerson = dao.getPersonByProject("film", pos.getNamePosition(),
+                                            Integer.parseInt(request.getParameter("checkBox" + i)), new Person());
+                                    for (int j = 0; j < listPerson.size(); j++) {
+                                        Person person = (Person) listPerson.get(j);
+                                        dao.setProjectToPerson("film", newFilm.getId(), person.getId(), pos.getId());
+                                    }
+                                }
                                 break;
                         }
                     }

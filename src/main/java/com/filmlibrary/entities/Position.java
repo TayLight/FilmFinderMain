@@ -15,13 +15,13 @@ public class Position implements Serializable, EntityDB {
     private ArrayList<String> columns;
 
     public Position(){
-        table = "public.position";
+        table = "position";
         countColumns = 2;
         addColumns();
     }
 
     public Position(int id, String namePosition){
-        table = "public.position";
+        table = "position";
         countColumns = 2;
         addColumns();
         this.id = id;
@@ -29,7 +29,7 @@ public class Position implements Serializable, EntityDB {
     }
 
     public Position(String namePosition){
-        table = "public.position";
+        table = "position";
         countColumns = 2;
         addColumns();
         this.namePosition = namePosition;

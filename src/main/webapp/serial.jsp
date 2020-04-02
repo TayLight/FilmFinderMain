@@ -11,10 +11,12 @@
             width: 100%;
             border-collapse: collapse;
         }
+
         td, th {
             padding: 4px;
             border: 1px solid #000080;
         }
+
         th {
             background: #000080;
             color: #ffe;
@@ -102,6 +104,16 @@
                             case "Copy":
                                 copySerial = (Serial) dao.getEntityById(Integer.parseInt(request.getParameter("checkBox" + i)), new Serial());
                                 dao.addEntity(copySerial);
+                                Serial newSerial = (Serial) dao.getTopEntity(new Serial());
+                                for (int k = 0; k < listPosition.size(); k++) {
+                                    Position pos = (Position) listPosition.get(k);
+                                    ArrayList<EntityDB> listPerson = dao.getPersonByProject("serial", pos.getNamePosition(),
+                                            Integer.parseInt(request.getParameter("checkBox" + i)), new Person());
+                                    for (int j = 0; j < listPerson.size(); j++) {
+                                        Person person = (Person) listPerson.get(j);
+                                        dao.setProjectToPerson("serial", newSerial.getId(), person.getId(), pos.getId());
+                                    }
+                                }
                                 break;
                         }
                     }
@@ -120,7 +132,8 @@
         <button type="submit" name="action" value="Delete">Удалить</button>
         <button type="submit" name="action" value="Copy">Копировать</button>
     </div>
-</form>,
+</form>
+,
 <%
     out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\"><html>");
     out.println("<body>");
