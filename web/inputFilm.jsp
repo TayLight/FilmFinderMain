@@ -79,7 +79,7 @@
                     out.print("<td><input type=\"checkBox\" name=\"check" + person.getId() + "\"  value=\"" + person.getId() + "\" >");
                     out.print("</td><td> <select name=\"position" + person.getId() + "\"> <option value=\"Актер\">Актер</option><option value=\"Режиссер\">Режиссер</option><option value=\"Продюсер\">Продюсер</option><option value=\"Сценарист\">Сценарист</option></select>");
                 }
-                        out.print("</td><td>" + person.getFirstName() +
+                out.print("</td><td>" + person.getFirstName() +
                         "</td><td>" + person.getLastName() +
                         "</td><td>" + person.getBirthday() +
                         "</td><td>" + person.getCountry());
