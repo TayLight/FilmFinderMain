@@ -25,15 +25,15 @@
     ArrayList<EntityDB> listPerson = dao.getAllEntity(new Person());
 %>
 <form method='POST' action='film.jsp'>
-    <input type="hidden" readonly name="filmId" value="<%if(film!=null)out.print(film.getId());%>"/>
-    <input type="hidden" name="action" value="<% if(film!=null) out.print("Edit"); else out.print("Add");%>"/>
-    Название: <input name="title" value="<% if(film!=null) out.print(film.getTitle());%>"/>
+    <input required type="hidden" readonly name="filmId" value="<%if(film!=null)out.print(film.getId());%>"/>
+    <input required type="hidden" name="action" value="<% if(film!=null) out.print("Edit"); else out.print("Add");%>"/>
+    Название: <input required name="title" value="<% if(film!=null) out.print(film.getTitle());%>"/>
     <br><br>
-    Дата выхода: <input name="issueYear" value="<% if(film!=null) out.print(film.getIssueYear());%>"/>
+    Дата выхода: <input required name="issueYear" value="<% if(film!=null) out.print(film.getIssueYear());%>"/>
     <br><br>
-    Оценка: <input name="imdb" value="<% if(film!=null) out.print(film.getImdb());%>"/>
+    Оценка: <input required name="imdb" value="<% if(film!=null) out.print(film.getImdb());%>"/>
     <br><br>
-    Длина: <input value="<%if(film!=null) out.print(film.getLength()); %>" name="length">
+    Длина: <input required value="<%if(film!=null) out.print(film.getLength()); %>" name="length">
     <br><br>
     <%
         if (request.getParameter("action") != null){

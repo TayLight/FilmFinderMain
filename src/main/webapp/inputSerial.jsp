@@ -27,17 +27,17 @@
 <form method='POST' action='serial.jsp'>
     <input type="hidden" readonly name="serialId" value="<%if(serial!=null)out.print(serial.getId());%>"/>
     <input type="hidden" name="action" value="<% if(serial!=null) out.print("Edit"); else out.print("Add");%>"/>
-    Название: <input name="title" value="<% if(serial!=null) out.print(serial.getTitle());%>"/>
+    Название: <input required name="title" value="<% if(serial!=null) out.print(serial.getTitle());%>"/>
     <br><br>
-    Дата запуска: <input name="yearStart" value="<% if(serial!=null) out.print(serial.getYearStart());%>"/>
+    Дата запуска: <input required name="yearStart" value="<% if(serial!=null) out.print(serial.getYearStart());%>"/>
     <br><br>
-    Дата окончания: <input name="yearFinish" value="<% if(serial!=null) out.print(serial.getYearFinish());%>"/>
+    Дата окончания: <input required name="yearFinish" value="<% if(serial!=null) out.print(serial.getYearFinish());%>"/>
     <br><br>
-    Кол-во эпизодов: <input name="numEpisodes" value="<% if(serial!=null) out.print(serial.getNumEpisodes());%>"/>
+    Кол-во эпизодов: <input required name="numEpisodes" value="<% if(serial!=null) out.print(serial.getNumEpisodes());%>"/>
     <br><br>
-    Кол-во сезонов: <input name="numSeasons" value="<% if(serial!=null) out.print(serial.getNumSeasons());%>"/>
+    Кол-во сезонов: <input required name="numSeasons" value="<% if(serial!=null) out.print(serial.getNumSeasons());%>"/>
     <br><br>
-    Оценка: <input name="imdb" value="<% if(serial!=null) out.print(serial.getImdb());%>"/>
+    Оценка: <input required name="imdb" value="<% if(serial!=null) out.print(serial.getImdb());%>"/>
     <br><br>
 
     <%
