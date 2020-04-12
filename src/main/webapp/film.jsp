@@ -37,15 +37,18 @@
 <%@ page import="com.filmlibrary.entities.Person" %>
 <jsp:useBean id="listFilm" class="java.util.ArrayList" scope="application"/>
 <jsp:useBean id="listPosition" class="java.util.ArrayList" scope="application"/>
+<%
+    request.setCharacterEncoding("UTF-8");
+%>
 <form action="film.jsp" method="post">
-    <input type="text" name="search">
+    <input type="text" name="search" value="<% if(request.getParameter("search")!=null) out.print(request.getParameter("search"));%>">
     <select name="column">
         <option value="title">Название</option>
         <option value="issue_year">Дата выхода</option>
         <option value="imdb">Оценка</option>
         <option value="length">Длина</option>
     </select>
-    <button type="submit" name="search" value="Search">Поиск</button>
+    <button type="submit" name="searchButton" value="Search">Поиск</button>
     <button type="button" name="search  " onclick="location.href ='film.jsp'" value="Add">Сбросить</button>
 </form>
 <form id="checkedForm" action="film.jsp" method="post">
@@ -125,14 +128,14 @@
     </div>
 </form>
 <%
-    out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\"><html>");
-    out.println("<body>");
-    out.println("<table  id=\"centerPlacement\" border=\"1\"><tbody>");
-    out.println("<tr><th></th><th>Название</th><th>Дата выхода</th><th>Оценка</th><th>Длина</th><th></th></tr>");
+    out.print("<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\"><html>");
+    out.print("<body>");
+    out.print("<table  id=\"centerPlacement\" border=\"1\"><tbody>");
+    out.print("<tr><th></th><th>Название</th><th>Дата выхода</th><th>Оценка</th><th>Длина</th><th></th></tr>");
     for (int i = 0; i < listFilm.size(); i++) {
         Object o = listFilm.get(i);
         Film film = (Film) o;
-        out.println("<tr><td><input form=\"checkedForm\" type=\"checkBox\" name=\"checkBox" + i + "\"  value=\"" + film.getId() + "\" >" +
+        out.print("<tr><td><input form=\"checkedForm\" type=\"checkBox\" name=\"checkBox" + i + "\"  value=\"" + film.getId() + "\" >" +
                 "</td><td>" + film.getTitle() +
                 "</td><td>" + film.getIssueYear() +
                 "</td><td>" + film.getImdb() +
@@ -140,8 +143,8 @@
                 "</td><td> <form action=\"inputFilm.jsp\" method=\"post\"><button type=\"submit\" name=\"action\" value=\"" + film.getId() + "\">Edit</button></form>" +
                 "<form action=\"filmInfo.jsp\" method=\"post\"><button type=\"submit\" name=\"action\" value=\"" + film.getId() + "\">Info</button></form>");
     }
-    out.println("</tbody></table></body>");
-    out.println("</html>");
+    out.print("</tbody></table></body>");
+    out.print("</html>");
 %>
 <jsp:include page="_footer.jsp"/>
 </body>

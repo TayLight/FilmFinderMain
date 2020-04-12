@@ -26,7 +26,6 @@
         }
     </style>
 </head>
-
 <body>
 <jsp:include page="_header.jsp"/>
 <jsp:include page="_menu.jsp"/>
@@ -38,8 +37,11 @@
 <%@ page import="java.util.ArrayList" %>
 <jsp:useBean id="listSerial" class="java.util.ArrayList" scope="application"/>
 <jsp:useBean id="listPosition" class="java.util.ArrayList" scope="application"/>
+<%
+    request.setCharacterEncoding("UTF-8");
+%>
 <form action="serial.jsp" method="post">
-    <input type="text" name="search">
+    <input type="text" name="search" value="<% if(request.getParameter("search")!=null) out.print(request.getParameter("search"));%>">
     <select name="column">
         <option value="title">Название</option>
         <option value="year_start">Дата запуска</option>
@@ -48,7 +50,7 @@
         <option value="num_of_seasons">Кол-во сезонов</option>
         <option value="imdb">Оценка</option>
     </select>
-    <button type="submit" name="search" value="Search">Поиск</button>
+    <button type="submit" name="searchButton" value="Search">Поиск</button>
     <button type="button" name="reset" onclick="location.href ='serial.jsp'" value="Reset">Сбросить</button>
 </form>
 <form id="checkedForm" action="serial.jsp" method="post">
@@ -135,14 +137,14 @@
 </form>
 ,
 <%
-    out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\"><html>");
-    out.println("<body>");
-    out.println("<table  id=\"centerPlacement\" border=\"1\"><tbody>");
-    out.println("<tr><th></th><th>Название</th><th>Год запуска</th><th>Год окончания</th><th>Эпизоды</th><th>Сезоны</th><th>Оценка</th><th></th></tr>");
+    out.print("<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\"><html>");
+    out.print("<body>");
+    out.print("<table  id=\"centerPlacement\" border=\"1\"><tbody>");
+    out.print("<tr><th></th><th>Название</th><th>Год запуска</th><th>Год окончания</th><th>Эпизоды</th><th>Сезоны</th><th>Оценка</th><th></th></tr>");
     for (int i = 0; i < listSerial.size(); i++) {
         Object o = listSerial.get(i);
         Serial serial = (Serial) o;
-        out.println("<tr><td><input form=\"checkedForm\" type=\"checkBox\" name=\"checkBox" + i + "\"  value=\"" + serial.getId() + "\" >" +
+        out.print("<tr><td><input form=\"checkedForm\" type=\"checkBox\" name=\"checkBox" + i + "\"  value=\"" + serial.getId() + "\" >" +
                 "</td><td>" + serial.getTitle() +
                 "</td><td>" + serial.getYearStart() +
                 "</td><td>" + serial.getYearFinish() +
@@ -152,8 +154,8 @@
                 "</td><td> <form action=\"inputSerial.jsp\" method=\"post\"><button type=\"submit\" name=\"action\" value=\"" + serial.getId() + "\">Edit</button> </form>" +
                 "<form action=\"serialInfo.jsp\" method=\"post\"><button type=\"submit\" name=\"action\" value=\"" + serial.getId() + "\">Info</button> </form></td>");
     }
-    out.println("</tbody></table></body>");
-    out.println("</html>");
+    out.print("</tbody></table></body>");
+    out.print("</html>");
 %>
 <jsp:include page="_footer.jsp"/>
 </body>

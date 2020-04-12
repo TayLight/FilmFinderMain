@@ -89,7 +89,7 @@
                         "</td><td>" + person.getBirthday() +
                         "</td><td>" + person.getCountry());
             }
-            out.println("</tbody></table>");
+            out.print("</tbody></table>");
         }
     %>
     <div style="padding: 5px;">

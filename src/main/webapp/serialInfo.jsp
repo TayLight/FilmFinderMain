@@ -17,7 +17,6 @@
         serial = (Serial) dao.getEntityById(id, new Serial());
     } else {
         serial = null;
-
     }
 %>
 <form method='POST' action='personView.jsp'>
