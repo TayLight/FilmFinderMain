@@ -1,6 +1,9 @@
 package com.filmlibrary.beans.xml;
 
+import generated.PersonListType;
 import generated.PersonType;
+import generated.Result;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -12,6 +15,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import java.io.File;
 
 import java.math.BigInteger;
+import java.util.List;
 
 public class testJaxb {
     private static String filePath = "test.xml";
@@ -27,7 +31,9 @@ public class testJaxb {
         person.setBirthday(birtday);
         person.setPersonId(BigInteger.valueOf(1));
         person.setCountry("Ирландия");
-        convertObjectToXml(person,filePath);
+        Result result = new Result();
+        result.setPerson(person);
+        convertObjectToXml(result,filePath);
     }
 
     private static PersonType fromXmlToObject(String filePath) {
@@ -41,9 +47,9 @@ public class testJaxb {
         return null;
     }
 
-    private static void convertObjectToXml(PersonType person, String filePath) {
+    private static void convertObjectToXml(Result person, String filePath) {
         try {
-            JAXBContext context = JAXBContext.newInstance(PersonType.class);
+            JAXBContext context = JAXBContext.newInstance(Result.class);
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
             marshaller.marshal(person, new File(filePath));

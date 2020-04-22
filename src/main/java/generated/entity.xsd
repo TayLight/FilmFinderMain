@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://foobar.com"
+           xmlns:tns="http://foobar.com"
+           elementFormDefault="qualified">
+    <xs:simpleType name="codeType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="OK"/>
+            <xs:enumeration value="NOK"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="personType">
+        <xs:sequence>
+            <xs:element name="personId" type="xs:integer"/>
+            <xs:element name="firstName" type="xs:string"/>
+            <xs:element name="secondName" type="xs:string"/>
+            <xs:element name="birthday" type="xs:date"/>
+            <xs:element name="country" type="xs:string"/>
+            <xs:element name="table" type="xs:string"/>
+            <xs:element name="countColumns" type="xs:integer"/>
+            <xs:element name="columns" type="tns:columnsType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="filmType">
+        <xs:sequence>
+            <xs:element name="filmId" type="xs:integer"/>
+            <xs:element name="title" type="xs:string"/>
+            <xs:element name="issueYear" type="xs:integer"/>
+            <xs:element name="imdb" type="xs:double"/>
+            <xs:element name="length" type="xs:integer"/>
+            <xs:element name="table" type="xs:string"/>
+            <xs:element name="countColumns" type="xs:integer"/>
+            <xs:element name="columns" type="tns:columnsType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="serialType">
+        <xs:sequence>
+            <xs:element name="serialId" type="xs:integer"/>
+            <xs:element name="title" type="xs:string"/>
+            <xs:element name="yearStart" type="xs:integer"/>
+            <xs:element name="yearFinish" type="xs:integer"/>
+            <xs:element name="numEpisodes" type="xs:string"/>
+            <xs:element name="numSeasons" type="xs:string"/>
+            <xs:element name="imdb" type="xs:double"/>
+            <xs:element name="table" type="xs:string"/>
+            <xs:element name="countColumns" type="xs:integer"/>
+            <xs:element name="columns" type="tns:columnsType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="personListType">
+        <xs:sequence>
+            <xs:element name="person" type="tns:personType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="filmListType">
+        <xs:sequence>
+            <xs:element name="film" type="tns:filmType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="serialListType">
+        <xs:sequence>
+            <xs:element name="person" type="tns:serialType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="columnsType">
+        <xs:sequence>
+            <xs:element name="column" type="xs:string" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="result">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="code" type="tns:codeType"/>
+                <xs:choice>
+                    <xs:element name="persons"
+                                type="tns:personListType" minOccurs="0"/>
+                    <xs:element name="films"
+                                type="tns:filmListType" minOccurs="0"/>
+                    <xs:element name="serials"
+                                type="tns:serialListType" minOccurs="0"/>
+                    <xs:element name="person" type="tns:personType" minOccurs="0"/>
+                    <xs:element name="serial" type="tns:serialType" minOccurs="0"/>
+                    <xs:element name="film" type="tns:filmType" minOccurs="0"/>
+                </xs:choice>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
