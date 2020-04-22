@@ -1,18 +1,10 @@
 package com.filmlibrary.beans;
 
-import com.filmlibrary.Criterion;
-import com.filmlibrary.entities.EntityDB;
-import com.filmlibrary.entities.Person;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import java.io.File;
-import java.util.LinkedList;
+import generated.Result;
 
 public interface XmlBean {
 
-    void createXML(LinkedList<Criterion> criteria, LinkedList<EntityDB> entity) throws ParserConfigurationException, TransformerException;
+    Result fromXmlToObject(String filePath);
 
-    void importXML(File xml);
+    void convertObjectToXml(Result person, String filePath);
 }

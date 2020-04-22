@@ -3,8 +3,13 @@ package com.filmlibrary;
 import com.filmlibrary.entities.EntityDB;
 import com.filmlibrary.entities.Film;
 import com.filmlibrary.entities.Person;
+import generated.PersonType;
 
 import javax.swing.text.html.parser.Entity;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+import java.io.File;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -234,5 +239,33 @@ public class DAO {
 //        Person topPerson = (Person) dao.getTopEntity(new Person());
 //        System.out.println(topPerson.getId() + " " + topPerson.getFirstName());
     }
+
+    public void addEntity(String filePath){
+        PersonType person = new PersonType();
+        try {
+            JAXBContext jaxbContext = JAXBContext.newInstance(PersonType.class);
+            Unmarshaller un = jaxbContext.createUnmarshaller();
+            person= (PersonType) un.unmarshal(new File(filePath));
+            //TODO далее добавление персоны
+
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void editEntity(String filePath){
+        PersonType person = new PersonType();
+        try {
+            JAXBContext jaxbContext = JAXBContext.newInstance(PersonType.class);
+            Unmarshaller un = jaxbContext.createUnmarshaller();
+            person= (PersonType) un.unmarshal(new File(filePath));
+            //TODO далее редактирование персоны
+
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
 
