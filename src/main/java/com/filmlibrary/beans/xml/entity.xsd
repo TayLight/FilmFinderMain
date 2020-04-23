@@ -70,7 +70,7 @@
     <xs:element name="result">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="code" type="tns:codeType"/>
+                <xs:element name="code" type="tns:codeType" minOccurs="1"/>
                 <xs:choice>
                     <xs:element name="persons"
                                 type="tns:personListType" minOccurs="0"/>

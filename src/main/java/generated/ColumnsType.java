@@ -66,4 +66,7 @@ public class ColumnsType {
         return this.column;
     }
 
+    public void setColumn(List<String> column) {
+        this.column = column;
+    }
 }
