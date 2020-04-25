@@ -24,7 +24,7 @@ public class DBUtil {
             } catch (ClassNotFoundException | SQLException | IOException e) {
                 e.printStackTrace();
             }
-            return connection;//
+            return connection;
         }
     }
 

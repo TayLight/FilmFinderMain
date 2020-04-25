@@ -22,8 +22,8 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="title" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="yearStart" type="{http://www.w3.org/2001/XMLSchema}integer"/>
  *         &lt;element name="yearFinish" type="{http://www.w3.org/2001/XMLSchema}integer"/>
- *         &lt;element name="numEpisodes" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="numSeasons" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="numEpisodes" type="{http://www.w3.org/2001/XMLSchema}integer"/>
+ *         &lt;element name="numSeasons" type="{http://www.w3.org/2001/XMLSchema}integer"/>
  *         &lt;element name="imdb" type="{http://www.w3.org/2001/XMLSchema}double"/>
  *         &lt;element name="table" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="countColumns" type="{http://www.w3.org/2001/XMLSchema}integer"/>
@@ -60,9 +60,9 @@ public class SerialType {
     @XmlElement(namespace = "http://foobar.com", required = true)
     protected BigInteger yearFinish;
     @XmlElement(namespace = "http://foobar.com", required = true)
-    protected String numEpisodes;
+    protected BigInteger numEpisodes;
     @XmlElement(namespace = "http://foobar.com", required = true)
-    protected String numSeasons;
+    protected BigInteger numSeasons;
     @XmlElement(namespace = "http://foobar.com")
     protected double imdb;
     @XmlElement(namespace = "http://foobar.com", required = true)
@@ -173,10 +173,10 @@ public class SerialType {
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link BigInteger }
      *     
      */
-    public String getNumEpisodes() {
+    public BigInteger getNumEpisodes() {
         return numEpisodes;
     }
 
@@ -185,10 +185,10 @@ public class SerialType {
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link BigInteger }
      *     
      */
-    public void setNumEpisodes(String value) {
+    public void setNumEpisodes(BigInteger value) {
         this.numEpisodes = value;
     }
 
@@ -197,10 +197,10 @@ public class SerialType {
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link BigInteger }
      *     
      */
-    public String getNumSeasons() {
+    public BigInteger getNumSeasons() {
         return numSeasons;
     }
 
@@ -209,10 +209,10 @@ public class SerialType {
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link BigInteger }
      *     
      */
-    public void setNumSeasons(String value) {
+    public void setNumSeasons(BigInteger value) {
         this.numSeasons = value;
     }
 

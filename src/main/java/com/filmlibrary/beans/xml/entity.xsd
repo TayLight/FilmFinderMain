@@ -39,8 +39,8 @@
             <xs:element name="title" type="xs:string"/>
             <xs:element name="yearStart" type="xs:integer"/>
             <xs:element name="yearFinish" type="xs:integer"/>
-            <xs:element name="numEpisodes" type="xs:string"/>
-            <xs:element name="numSeasons" type="xs:string"/>
+            <xs:element name="numEpisodes" type="xs:integer"/>
+            <xs:element name="numSeasons" type="xs:integer"/>
             <xs:element name="imdb" type="xs:double"/>
             <xs:element name="table" type="xs:string"/>
             <xs:element name="countColumns" type="xs:integer"/>
