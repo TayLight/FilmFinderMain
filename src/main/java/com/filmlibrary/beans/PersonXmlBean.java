@@ -31,8 +31,9 @@ public class PersonXmlBean implements XmlBean  {
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(Result.class);
             Unmarshaller un = jaxbContext.createUnmarshaller();
+            if(!checkEntityXMLforXSD(pathToXmlEntity)) throw new SAXException();
             return (Result) un.unmarshal(new File(pathToXmlEntity));
-        } catch (JAXBException e) {
+        } catch (JAXBException | SAXException | IOException e) {
             e.printStackTrace();
         }
         return null;
@@ -105,7 +106,7 @@ public class PersonXmlBean implements XmlBean  {
     public ObjectCriterion fromXmlToCriterion() {
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(ObjectCriterion.class);
-            checkCriterionXMLforXSD(pathToXmlCriterion);
+            if(!checkCriterionXMLforXSD(pathToXmlCriterion)) throw new SAXException();
             Unmarshaller un = jaxbContext.createUnmarshaller();
             return (ObjectCriterion) un.unmarshal(new File(pathToXmlCriterion));
         } catch (JAXBException | IOException | SAXException e) {

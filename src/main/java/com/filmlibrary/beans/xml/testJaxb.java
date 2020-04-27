@@ -88,7 +88,6 @@ public class testJaxb {
             JAXBContext context = JAXBContext.newInstance(Result.class); //Тут все так же
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE); //Не до конца понимаю
-
             marshaller.marshal(result, new File(filePath));
         } catch (JAXBException e) {
             e.printStackTrace();
