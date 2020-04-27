@@ -37,7 +37,7 @@ public class testJaxb {
     /**
      * Адрес файла xsd, по которому будет проходить проверку xml
      */
-    private static String filePathXsd = "C:\\Users\\Dogore\\Documents\\NetCracker\\MainFilmFinder\\FilmFinder\\src\\main\\java\\com\\filmlibrary\\beans\\xml\\entity.xsd";
+    private static String filePathXsd = "src\\main\\java\\com\\filmlibrary\\beans\\xml\\entity.xsd";
 
     public static void main(String[] arg) throws DatatypeConfigurationException {
         EntityFactory ef = new EntityFactory();
