@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.time.LocalDate;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -41,15 +42,24 @@ public class testJaxb {
     public static void main(String[] arg) throws DatatypeConfigurationException {
         EntityFactory ef = new EntityFactory();
         ObjectFactory of = new ObjectFactory();
-        Result result = of.createResult();   //Result это оболочка, в которой может храниться PersonType,FilmType,SerialType, списки с этими объектами
-        result.setCode(CodeType.OK);        //Код можно использовать для проверки, задавать OK если все хорошо, NOK, если все плохо
         PersonType person = ef      //создаем типы через фабрику, чтобы каждый раз не задавать колонки, их количество итп
                 .createPerson(1,"Иван","Петров", LocalDate.now(),"США");
-        result.setPerson(person);         //заносим в оболочку result объект
-        convertObjectToXml(result,filePath);
+                //заносим в оболочку result объект
+        convertObjectToXml(person,filePath);
         Result personType = fromXmlToObject(filePath);
         assert personType != null;
         System.out.println(personType.getPerson().getFirstName());
+        PersonType personType1 = ef
+                .createPerson(2,"Петр","Иванов",LocalDate.now(),"Россия");
+        LinkedList<PersonType> types = new LinkedList<>();
+        types.add(personType1);
+        types.add(person);
+        PersonListType personListType = of.createPersonListType();
+        personListType.setPerson(types);
+        convertObjectToXml(personListType,filePath);
+        Result result = fromXmlToObject(filePath);
+        personListType=result.getPersons();
+        System.out.println(personListType.getPerson().get(0).getFirstName());
     }
 
     private static Result fromXmlToObject(String filePath) {
@@ -70,13 +80,16 @@ public class testJaxb {
         return null;
     }
 
-    private static void convertObjectToXml(Result person, String filePath) {
+    private static void convertObjectToXml(EntityXml entityXML, String filePath) {
         try {
+            Result result = new Result();
+            result.setCode(CodeType.OK);
+            result.setEntity(entityXML);
             JAXBContext context = JAXBContext.newInstance(Result.class); //Тут все так же
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE); //Не до конца понимаю
 
-            marshaller.marshal(person, new File(filePath));
+            marshaller.marshal(result, new File(filePath));
         } catch (JAXBException e) {
             e.printStackTrace();
         }

@@ -49,7 +49,7 @@ import javax.xml.bind.annotation.XmlType;
     "countColumns",
     "columns"
 })
-public class SerialType {
+public class SerialType implements EntityXml {
 
     @XmlElement(namespace = "http://foobar.com", required = true)
     protected BigInteger serialId;

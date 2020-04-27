@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "personListType", namespace = "http://foobar.com", propOrder = {
     "person"
 })
-public class PersonListType {
+public class PersonListType implements EntityXml {
 
     @XmlElement(namespace = "http://foobar.com", required = true)
     protected List<PersonType> person;
@@ -66,4 +66,7 @@ public class PersonListType {
         return this.person;
     }
 
+    public void setPerson(List<PersonType> person) {
+        this.person = person;
+    }
 }

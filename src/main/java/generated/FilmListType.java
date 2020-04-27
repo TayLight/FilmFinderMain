@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "filmListType", namespace = "http://foobar.com", propOrder = {
     "film"
 })
-public class FilmListType {
+public class FilmListType  implements EntityXml {
 
     @XmlElement(namespace = "http://foobar.com", required = true)
     protected List<FilmType> film;

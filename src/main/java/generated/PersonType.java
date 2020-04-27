@@ -47,7 +47,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "countColumns",
     "columns"
 })
-public class PersonType {
+public class PersonType implements EntityXml {
 
     @XmlElement(namespace = "http://foobar.com", required = true)
     protected BigInteger personId;

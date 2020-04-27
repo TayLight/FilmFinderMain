@@ -45,7 +45,7 @@ import javax.xml.bind.annotation.XmlType;
     "countColumns",
     "columns"
 })
-public class FilmType {
+public class FilmType implements EntityXml {
 
     @XmlElement(namespace = "http://foobar.com", required = true)
     protected BigInteger filmId;

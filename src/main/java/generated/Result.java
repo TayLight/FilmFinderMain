@@ -1,6 +1,9 @@
 
 package generated;
 
+import com.filmlibrary.entities.Person;
+import com.filmlibrary.entities.Serial;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -47,7 +50,7 @@ import javax.xml.bind.annotation.XmlType;
     "film"
 })
 @XmlRootElement(name = "result", namespace = "http://foobar.com")
-public class Result {
+public class Result implements EntityXml {
 
     @XmlElement(namespace = "http://foobar.com", required = true)
     @XmlSchemaType(name = "string")
@@ -147,6 +150,33 @@ public class Result {
      */
     public SerialListType getSerials() {
         return serials;
+    }
+
+    public void setEntity(EntityXml entity){
+        if (FilmType.class.equals(entity.getClass())) {
+            FilmType filmType = (FilmType) entity;
+            setFilm(filmType);
+        }
+        else if(SerialType.class.equals(entity.getClass())){
+            SerialType serialType = (SerialType) entity;
+            setSerial(serialType);
+        }
+        else if(PersonType.class.equals(entity.getClass())){
+            PersonType personType = (PersonType) entity;
+            setPerson(personType);
+        }
+        else if(FilmListType.class.equals(entity.getClass())){
+            FilmListType filmListType = (FilmListType) entity;
+            setFilms(filmListType);
+        }
+        else if(SerialListType.class.equals(entity.getClass())){
+            SerialListType serialListType = (SerialListType) entity;
+            setSerials(serialListType);
+        }
+        else if(PersonListType.class.equals(entity.getClass())){
+            PersonListType personListType = (PersonListType) entity;
+            setPersons(personListType);
+        }
     }
 
     /**

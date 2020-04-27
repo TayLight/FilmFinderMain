@@ -240,12 +240,12 @@ public class DAO {
 //        System.out.println(topPerson.getId() + " " + topPerson.getFirstName());
     }
 
-    public void addEntity(String filePath){
+    public void addEntity(File fileXml){
         PersonType person = new PersonType();
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(PersonType.class);
             Unmarshaller un = jaxbContext.createUnmarshaller();
-            person= (PersonType) un.unmarshal(new File(filePath));
+            person= (PersonType) un.unmarshal(fileXml);
             //TODO далее добавление персоны
 
         } catch (JAXBException e) {
@@ -253,12 +253,12 @@ public class DAO {
         }
     }
 
-    public void editEntity(String filePath){
+    public void editEntity(File fileXml){
         PersonType person = new PersonType();
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(PersonType.class);
             Unmarshaller un = jaxbContext.createUnmarshaller();
-            person= (PersonType) un.unmarshal(new File(filePath));
+            person= (PersonType) un.unmarshal(fileXml);
             //TODO далее редактирование персоны
 
         } catch (JAXBException e) {
@@ -268,4 +268,3 @@ public class DAO {
 
 
 }
-
