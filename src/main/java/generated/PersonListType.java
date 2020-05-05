@@ -1,6 +1,8 @@
 
 package generated;
 
+import java.math.BigInteger;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -66,7 +68,30 @@ public class PersonListType implements EntityXml {
         return this.person;
     }
 
-    public void setPerson(List<PersonType> person) {
-        this.person = person;
+    public void setArray(List<EntityXml> entityXml) {
+        this.person = new ArrayList<>();
+        for (EntityXml entity : entityXml) {
+            this.person.add((PersonType) entity);
+        }
+    }
+
+    @Override
+    public String getTable() {
+        return null;
+    }
+
+    @Override
+    public BigInteger getCountColumns() {
+        return null;
+    }
+
+    @Override
+    public ColumnsType getColumns() {
+        return null;
+    }
+
+    @Override
+    public EntityXml getEntity(ResultSet resultSet) {
+        return null;
     }
 }

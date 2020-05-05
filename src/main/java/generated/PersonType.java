@@ -1,12 +1,24 @@
 
 package generated;
 
+import com.filmlibrary.entities.EntityDB;
+import com.filmlibrary.entities.Person;
+
 import java.math.BigInteger;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 
@@ -245,6 +257,31 @@ public class PersonType implements EntityXml {
      */
     public ColumnsType getColumns() {
         return columns;
+    }
+
+    public EntityXml getEntity(ResultSet resultSet) {
+        PersonType person = new PersonType();
+        try {
+            person.setPersonId(BigInteger.valueOf(resultSet.getInt("id_person")));
+            person.setFirstName(resultSet.getString("first_name"));
+            person.setSecondName(resultSet.getString("second_name"));
+            Date date = resultSet.getDate("birthday");
+            XMLGregorianCalendar xmlGregorianCalendar = DatatypeFactory.newInstance().newXMLGregorianCalendar();
+            LocalDate localDate = date.toLocalDate();
+            xmlGregorianCalendar.setYear(localDate.getYear());
+            xmlGregorianCalendar.setMonth(localDate.getMonthValue());
+            xmlGregorianCalendar.setDay(localDate.getDayOfMonth());
+            person.setBirthday(xmlGregorianCalendar);
+            person.setCountry(resultSet.getString("country"));
+        } catch (SQLException | DatatypeConfigurationException e) {
+            e.printStackTrace();
+        }
+        return person;
+    }
+
+    @Override
+    public void setArray(List<EntityXml> entity) {
+
     }
 
     /**

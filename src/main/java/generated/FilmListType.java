@@ -1,6 +1,8 @@
 
 package generated;
 
+import java.math.BigInteger;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -66,4 +68,30 @@ public class FilmListType  implements EntityXml {
         return this.film;
     }
 
+    public void setArray(List<EntityXml> entityXml){
+        film = new ArrayList<>();
+        for (EntityXml entity: entityXml) {
+            film.add((FilmType) entity);
+        }
+    }
+
+    @Override
+    public String getTable() {
+        return null;
+    }
+
+    @Override
+    public BigInteger getCountColumns() {
+        return null;
+    }
+
+    @Override
+    public ColumnsType getColumns() {
+        return null;
+    }
+
+    @Override
+    public EntityXml getEntity(ResultSet resultSet) {
+        return null;
+    }
 }

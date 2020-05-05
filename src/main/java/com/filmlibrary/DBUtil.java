@@ -1,5 +1,7 @@
 package com.filmlibrary;
 
+import com.filmlibrary.entities.Film;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -29,6 +31,7 @@ public class DBUtil {
     }
 
     public static void main(String[] argv) {
-
+        DAO dao = new DAO();
+        System.out.println(dao.getAllEntity(new Film()));
     }
 }

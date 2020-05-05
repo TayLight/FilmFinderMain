@@ -55,7 +55,6 @@ public class testJaxb {
         types.add(personType1);
         types.add(person);
         PersonListType personListType = of.createPersonListType();
-        personListType.setPerson(types);
         convertObjectToXml(personListType,filePath);
         Result result = fromXmlToObject(filePath);
         personListType=result.getPersons();

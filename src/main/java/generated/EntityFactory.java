@@ -34,6 +34,14 @@ public class EntityFactory {
         return null;
     }
 
+    public PersonType createPerson(){
+        PersonType person = new PersonType();
+        person.setTable("person");
+        person.setCountColumns(BigInteger.valueOf(5));
+        person.setColumns(insertColumnsPerson());
+        return person;
+    }
+
     public FilmType createFilm(int id, String title, int issueYear, double imdb, int length){
         FilmType filmType = new FilmType();
         filmType.setTitle(title);
@@ -41,6 +49,14 @@ public class EntityFactory {
         filmType.setIssueYear(BigInteger.valueOf(issueYear));
         filmType.setImdb(imdb);
         filmType.setLength(BigInteger.valueOf(length));
+        filmType.setTable("film");
+        filmType.setCountColumns(BigInteger.valueOf(5));
+        filmType.setColumns(insertColumnsFilm());
+        return filmType;
+    }
+
+    public FilmType createFilm(){
+        FilmType filmType = new FilmType();
         filmType.setTable("film");
         filmType.setCountColumns(BigInteger.valueOf(5));
         filmType.setColumns(insertColumnsFilm());
@@ -56,6 +72,14 @@ public class EntityFactory {
         serialType.setNumEpisodes(BigInteger.valueOf(numEpisodes));
         serialType.setNumSeasons(BigInteger.valueOf(numSeasons));
         serialType.setImdb(imdb);
+        serialType.setTable("serial");
+        serialType.setCountColumns(BigInteger.valueOf(7));
+        serialType.setColumns(insertColumnsSerial());
+        return serialType;
+    }
+
+    public SerialType createSerial(){
+        SerialType serialType = new SerialType();
         serialType.setTable("serial");
         serialType.setCountColumns(BigInteger.valueOf(7));
         serialType.setColumns(insertColumnsSerial());

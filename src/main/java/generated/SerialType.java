@@ -1,7 +1,13 @@
 
 package generated;
 
+import com.filmlibrary.entities.EntityDB;
+import com.filmlibrary.entities.Serial;
+
 import java.math.BigInteger;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -304,4 +310,24 @@ public class SerialType implements EntityXml {
         this.columns = value;
     }
 
+    public EntityXml getEntity(ResultSet resultSet) {
+        SerialType serial = new SerialType();
+        try {
+            serial.setSerialId(BigInteger.valueOf(resultSet.getInt("id_serial")));
+            serial.setTitle(resultSet.getString("title"));
+            serial.setYearStart(BigInteger.valueOf(resultSet.getInt("year_start")));
+            serial.setYearFinish(BigInteger.valueOf(resultSet.getInt("year_finish")));
+            serial.setNumEpisodes(BigInteger.valueOf(resultSet.getInt("num_of_episodes")));
+            serial.setNumSeasons(BigInteger.valueOf(resultSet.getInt("num_of_seasons")));
+            serial.setImdb(resultSet.getDouble("imdb"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return serial;
+    }
+
+    @Override
+    public void setArray(List<EntityXml> entity) {
+
+    }
 }

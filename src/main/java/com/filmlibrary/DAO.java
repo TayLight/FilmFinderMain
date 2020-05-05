@@ -1,9 +1,10 @@
 package com.filmlibrary;
 
+import com.filmlibrary.beans.PersonXmlBean;
 import com.filmlibrary.entities.EntityDB;
 import com.filmlibrary.entities.Film;
 import com.filmlibrary.entities.Person;
-import generated.PersonType;
+import generated.*;
 
 import javax.swing.text.html.parser.Entity;
 import javax.xml.bind.JAXBContext;
@@ -13,6 +14,7 @@ import java.io.File;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DAO {
     private Connection connection;
@@ -125,6 +127,40 @@ public class DAO {
         return entities;
     }
 
+    public EntityXml getEntity(ResultSet resultSet, EntityXml
+            entityXml) {
+        return entityXml.getEntity(resultSet);
+    }
+
+    public File getAllEntity(EntityXml entityXml){
+        List<EntityXml> entities = new ArrayList<>();
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery("select * from " + entityXml.getTable() + "");
+            while (rs.next()) {
+                entities.add(getEntity(rs, entityXml));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        PersonXmlBean personXmlBean = new PersonXmlBean();
+        if(entityXml.getClass() == PersonType.class){
+            PersonListType personListType = new PersonListType();
+            personListType.setArray(entities);
+            return personXmlBean.convertEntityToXml(personListType);
+        }
+        else if(entityXml.getClass()== FilmType.class){
+            FilmListType filmListType = new FilmListType();
+            filmListType.setArray(entities);
+            return personXmlBean.convertEntityToXml(filmListType);
+        }
+        else {
+            SerialListType serialListType = new SerialListType();
+            serialListType.setArray(entities);
+            return personXmlBean.convertEntityToXml(serialListType);
+        }
+    }
+
     public EntityDB getEntityById(int entityId, EntityDB entityDB) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("select * from " + entityDB.getTableName() + " where " + entityDB.getColumns().get(0) + "=?");
@@ -233,11 +269,9 @@ public class DAO {
     }
 
     public static void main(String[] arg) {
-//        DAO dao = new DAO();
-//        Person newPerson = new Person("лупа", "пупова", LocalDate.now(), "Россия");
-//        dao.addEntity(newPerson);
-//        Person topPerson = (Person) dao.getTopEntity(new Person());
-//        System.out.println(topPerson.getId() + " " + topPerson.getFirstName());
+        DAO dao = new DAO();
+        EntityFactory ef = new EntityFactory();
+        dao.getAllEntity(ef.createSerial());
     }
 
     public void addEntity(File fileXml){

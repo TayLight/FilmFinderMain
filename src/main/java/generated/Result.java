@@ -10,6 +10,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import java.math.BigInteger;
+import java.sql.ResultSet;
+import java.util.List;
 
 
 /**
@@ -263,4 +266,28 @@ public class Result implements EntityXml {
         this.film = value;
     }
 
+    @Override
+    public String getTable() {
+        return null;
+    }
+
+    @Override
+    public BigInteger getCountColumns() {
+        return null;
+    }
+
+    @Override
+    public ColumnsType getColumns() {
+        return null;
+    }
+
+    @Override
+    public EntityXml getEntity(ResultSet resultSet) {
+        return null;
+    }
+
+    @Override
+    public void setArray(List<EntityXml> entity) {
+
+    }
 }

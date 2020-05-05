@@ -1,11 +1,23 @@
 
 package generated;
 
+import com.filmlibrary.entities.EntityDB;
+import com.filmlibrary.entities.Film;
+import com.filmlibrary.entities.Person;
+
 import java.math.BigInteger;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
@@ -246,6 +258,26 @@ public class FilmType implements EntityXml {
      */
     public void setColumns(ColumnsType value) {
         this.columns = value;
+    }
+
+    public EntityXml getEntity(ResultSet resultSet) {
+        EntityFactory ef = new EntityFactory();
+        FilmType film = ef.createFilm();
+        try {
+            film.setFilmId(BigInteger.valueOf(resultSet.getInt("id_film")));
+            film.setTitle(resultSet.getString("title"));
+            film.setIssueYear(BigInteger.valueOf(resultSet.getInt("issue_year")));
+            film.setImdb(resultSet.getInt("imdb"));
+            film.setLength(BigInteger.valueOf(resultSet.getInt("length")));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return film;
+    }
+
+    @Override
+    public void setArray(List<EntityXml> entity) {
+
     }
 
 }

@@ -5,15 +5,16 @@ import criteriongenerated.ObjectCriterion;
 import generated.EntityXml;
 import generated.Result;
 
+import java.io.File;
 import java.util.List;
 
 public interface XmlBean {
 
-    Result fromXmlToObject();
+    Result fromXmlToObject(File file);
 
-    void convertEntityToXml(EntityXml entity);
+    File convertEntityToXml(EntityXml entity);
 
-    void convertCriterionToXml(List<Criterion> criterionList, String type);
+    File convertCriterionToXml(List<Criterion> criterionList, String type);
 
-    ObjectCriterion fromXmlToCriterion();
+    ObjectCriterion fromXmlToCriterion(File file);
 }

@@ -27,46 +27,44 @@ public class PersonXmlBean implements XmlBean  {
     private String pathToXsdCriterion = "src\\main\\java\\com\\filmlibrary\\beans\\xml\\criterion.xsd";
     private String pathToXsdEntity = "src\\main\\java\\com\\filmlibrary\\beans\\xml\\entity.xsd";
 
-    public Result fromXmlToObject() {
+    public Result fromXmlToObject(File file) {
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(Result.class);
             Unmarshaller un = jaxbContext.createUnmarshaller();
-            if(!checkEntityXMLforXSD(pathToXmlEntity)) throw new SAXException();
-            return (Result) un.unmarshal(new File(pathToXmlEntity));
+            if(!checkEntityXMLforXSD(file)) throw new SAXException();
+            return (Result) un.unmarshal(file);
         } catch (JAXBException | SAXException | IOException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public void convertEntityToXml(EntityXml entity) {
+    public File convertEntityToXml(EntityXml entity) {
         try {
+            File fileXml = new File(pathToXmlEntity);
             Result result = new Result();
             result.setEntity(entity);
             JAXBContext context = JAXBContext.newInstance(Result.class);
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            marshaller.marshal(result, new File(pathToXmlEntity));
+            marshaller.marshal(result, fileXml);
+            return fileXml;
         } catch (JAXBException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
 
-    private boolean checkEntityXMLforXSD(String pathXml) throws IOException, SAXException {
+    private boolean checkEntityXMLforXSD(File file) throws IOException, SAXException {
 
-        File xml = new File(pathXml);
         File xsd = new File(pathToXsdEntity);
-
-        if (!xml.exists()) {
-            System.out.println("Не найден XML " + pathXml);      //Проверяем на существование путей
-        }
 
         if (!xsd.exists()) {
             System.out.println("Не найден XSD " + pathToXsdEntity);
         }
 
-        if (!xml.exists() || !xsd.exists()) {
+        if (!file.exists() || !xsd.exists()) {
             return false;
         }
 
@@ -74,24 +72,19 @@ public class PersonXmlBean implements XmlBean  {
                 .newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI); //Инициализация состояния
         Schema schema = factory.newSchema(new StreamSource(pathToXsdEntity));  //Загружаем нашу схему xsd
         Validator validator = schema.newValidator();       //создаем валидатор
-        validator.validate(new StreamSource(pathXml));       //Проверяем, если что то не так прокинет ошибку
+        validator.validate(new StreamSource(file));       //Проверяем, если что то не так прокинет ошибку
         return true;
     }
 
-    private boolean checkCriterionXMLforXSD(String pathXml) throws IOException, SAXException {
+    private boolean checkCriterionXMLforXSD(File file) throws IOException, SAXException {
 
-        File xml = new File(pathXml);
         File xsd = new File(pathToXsdCriterion);
-
-        if (!xml.exists()) {
-            System.out.println("Не найден XML " + pathXml);      //Проверяем на существование путей
-        }
 
         if (!xsd.exists()) {
             System.out.println("Не найден XSD " + pathToXsdCriterion);
         }
 
-        if (!xml.exists() || !xsd.exists()) {
+        if (!file.exists() || !xsd.exists()) {
             return false;
         }
 
@@ -99,25 +92,26 @@ public class PersonXmlBean implements XmlBean  {
                 .newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI); //Инициализация состояния
         Schema schema = factory.newSchema(new StreamSource(pathToXsdCriterion));  //Загружаем нашу схему xsd
         Validator validator = schema.newValidator();       //создаем валидатор
-        validator.validate(new StreamSource(pathXml));       //Проверяем, если что то не так прокинет ошибку
+        validator.validate(new StreamSource(file));       //Проверяем, если что то не так прокинет ошибку
         return true;
     }
 
-    public ObjectCriterion fromXmlToCriterion() {
+    public ObjectCriterion fromXmlToCriterion(File file) {
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(ObjectCriterion.class);
-            if(!checkCriterionXMLforXSD(pathToXmlCriterion)) throw new SAXException();
+            if(!checkCriterionXMLforXSD(file)) throw new SAXException();
             Unmarshaller un = jaxbContext.createUnmarshaller();
-            return (ObjectCriterion) un.unmarshal(new File(pathToXmlCriterion));
+            return (ObjectCriterion) un.unmarshal(file);
         } catch (JAXBException | IOException | SAXException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public void convertCriterionToXml(List<Criterion> criterionList, String type) {
+    public File convertCriterionToXml(List<Criterion> criterionList, String type) {
         try {
             CriterionListType criterionListType = new CriterionListType();
+            File xmlFile = new File(pathToXmlCriterion);
             criterionListType.setPerson(criterionList);
             ObjectCriterion objectCriterion = new ObjectCriterion();
             objectCriterion.setType(type);
@@ -125,9 +119,11 @@ public class PersonXmlBean implements XmlBean  {
             JAXBContext context = JAXBContext.newInstance(ObjectCriterion.class);
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            marshaller.marshal(objectCriterion, new File(pathToXmlCriterion));
+            marshaller.marshal(objectCriterion, xmlFile);
+            return xmlFile;
         } catch (JAXBException e) {
             e.printStackTrace();
         }
+        return null;
     }
 }
