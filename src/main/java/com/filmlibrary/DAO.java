@@ -45,6 +45,31 @@ public class DAO {
         }
     }
 
+    public void addEntity(File fileXml) {
+        try {
+            PersonXmlBean personXmlBean = new PersonXmlBean();
+            EntityXml entity = personXmlBean.fromXmlToObject(fileXml);
+            StringBuilder query = new StringBuilder();
+            List<String> list = entity.getColumns().getColumn();
+            query.append("INSERT INTO ").append(entity.getTable()).append("(");
+            for (int i = 1; i < list.size() - 1; i++) {
+                query.append(list.get(i));
+                query.append(",");
+            }
+            query.append(list.get(list.size() - 1)).append(") values (");
+            for (int i = 0; i < list.size() - 2; i++) {
+                query.append("?,");
+            }
+            query.append("?)");
+            System.out.println(query);
+            PreparedStatement preparedStatement = connection.prepareStatement(String.valueOf(query));
+            preparedStatement = entity.setDataAdd(preparedStatement);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void deleteEntity(int id, EntityDB entity) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("delete from " + entity.getTableName() + " where " + entity.getColumns().get(0) + "=?");
@@ -54,6 +79,8 @@ public class DAO {
             e.printStackTrace();
         }
     }
+
+
 
     public void updateEntity(EntityDB entityDB) {
         try {
@@ -273,32 +300,4 @@ public class DAO {
         EntityFactory ef = new EntityFactory();
         dao.getAllEntity(ef.createSerial());
     }
-
-    public void addEntity(File fileXml){
-        PersonType person = new PersonType();
-        try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(PersonType.class);
-            Unmarshaller un = jaxbContext.createUnmarshaller();
-            person= (PersonType) un.unmarshal(fileXml);
-            //TODO далее добавление персоны
-
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void editEntity(File fileXml){
-        PersonType person = new PersonType();
-        try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(PersonType.class);
-            Unmarshaller un = jaxbContext.createUnmarshaller();
-            person= (PersonType) un.unmarshal(fileXml);
-            //TODO далее редактирование персоны
-
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        }
-    }
-
-
 }

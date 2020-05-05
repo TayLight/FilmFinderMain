@@ -6,6 +6,7 @@ import com.filmlibrary.entities.Person;
 
 import java.math.BigInteger;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.Instant;
@@ -277,6 +278,24 @@ public class PersonType implements EntityXml {
             e.printStackTrace();
         }
         return person;
+    }
+
+    public PreparedStatement setDataAdd(PreparedStatement preparedStatement) throws SQLException {
+        preparedStatement.setString(1, firstName);
+        preparedStatement.setString(2, secondName);
+        preparedStatement.setDate(3, Date.valueOf(String.valueOf(birthday)));
+        preparedStatement.setString(4, country);
+        return preparedStatement;
+    }
+
+    @Override
+    public PreparedStatement setDataUpdate(PreparedStatement preparedStatement) throws SQLException {
+        preparedStatement.setString(1, getFirstName());
+        preparedStatement.setString(2, getSecondName());
+        preparedStatement.setDate(3, Date.valueOf(getBirthday().toString()));
+        preparedStatement.setString(4, getCountry());
+        preparedStatement.setInt(5, Integer.parseInt(String.valueOf(getPersonId())));
+        return preparedStatement;
     }
 
     @Override

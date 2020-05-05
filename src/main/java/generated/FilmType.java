@@ -7,12 +7,14 @@ import com.filmlibrary.entities.Person;
 
 import java.math.BigInteger;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -273,6 +275,24 @@ public class FilmType implements EntityXml {
             e.printStackTrace();
         }
         return film;
+    }
+
+    public PreparedStatement setDataAdd(PreparedStatement preparedStatement) throws SQLException {
+        preparedStatement.setString(1, title);
+        preparedStatement.setInt(2, Integer.parseInt(String.valueOf(issueYear)));
+        preparedStatement.setDouble(3, imdb);
+        preparedStatement.setInt(4, Integer.parseInt(String.valueOf(length)));
+        return preparedStatement;
+    }
+
+    @Override
+    public PreparedStatement setDataUpdate(PreparedStatement preparedStatement) throws SQLException {
+        preparedStatement.setString(1, title);
+        preparedStatement.setInt(2, Integer.parseInt(String.valueOf(issueYear)));
+        preparedStatement.setDouble(3, imdb);
+        preparedStatement.setInt(4, Integer.parseInt(String.valueOf(length)));
+        preparedStatement.setInt(5, Integer.parseInt(String.valueOf(filmId)));
+        return preparedStatement;
     }
 
     @Override

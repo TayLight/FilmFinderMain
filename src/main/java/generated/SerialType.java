@@ -5,6 +5,7 @@ import com.filmlibrary.entities.EntityDB;
 import com.filmlibrary.entities.Serial;
 
 import java.math.BigInteger;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -324,6 +325,29 @@ public class SerialType implements EntityXml {
             e.printStackTrace();
         }
         return serial;
+    }
+
+    @Override
+    public PreparedStatement setDataAdd(PreparedStatement preparedStatement) throws SQLException {
+        preparedStatement.setString(1, title);
+        preparedStatement.setInt(2, Integer.parseInt(String.valueOf(yearStart)));
+        preparedStatement.setInt(3, Integer.parseInt(String.valueOf(yearFinish)));
+        preparedStatement.setInt(4, Integer.parseInt(String.valueOf(numEpisodes)));
+        preparedStatement.setInt(5, Integer.parseInt(String.valueOf(numSeasons)));
+        preparedStatement.setDouble(6, imdb);
+        return preparedStatement;
+    }
+
+    @Override
+    public PreparedStatement setDataUpdate(PreparedStatement preparedStatement) throws SQLException {
+        preparedStatement.setString(1, title);
+        preparedStatement.setInt(2, Integer.parseInt(String.valueOf(yearStart)));
+        preparedStatement.setInt(3, Integer.parseInt(String.valueOf(yearFinish)));
+        preparedStatement.setInt(4, Integer.parseInt(String.valueOf(numEpisodes)));
+        preparedStatement.setInt(5, Integer.parseInt(String.valueOf(numSeasons)));
+        preparedStatement.setDouble(6, imdb);
+        preparedStatement.setInt(7, Integer.parseInt(String.valueOf(serialId)));
+        return preparedStatement;
     }
 
     @Override
