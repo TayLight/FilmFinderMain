@@ -3,12 +3,6 @@
            targetNamespace="http://foobar.com"
            xmlns:tns= "http://foobar.com"
            elementFormDefault="qualified">
-    <xs:simpleType name="codeType">
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="OK"/>
-            <xs:enumeration value="NOK"/>
-        </xs:restriction>
-    </xs:simpleType>
     <xs:complexType name="criterion">
         <xs:sequence>
             <xs:element name="nameCriterion" type="xs:string"/>
@@ -24,7 +18,7 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="type" type="xs:string" minOccurs="1"/>
-                <xs:element name="criterions" type="tns:criterionListType" minOccurs="1"/>
+                <xs:element name="criterions" type="tns:criterionListType" minOccurs="0"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

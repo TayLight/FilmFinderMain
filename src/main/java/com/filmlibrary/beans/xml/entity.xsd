@@ -11,7 +11,7 @@
     </xs:simpleType>
     <xs:complexType name="personType">
         <xs:sequence>
-            <xs:element name="personId" type="xs:integer"/>
+            <xs:element name="personId" type="xs:integer" minOccurs="0"/>
             <xs:element name="firstName" type="xs:string"/>
             <xs:element name="secondName" type="xs:string"/>
             <xs:element name="birthday" type="xs:date"/>
@@ -23,7 +23,7 @@
     </xs:complexType>
     <xs:complexType name="filmType">
         <xs:sequence>
-            <xs:element name="filmId" type="xs:integer"/>
+            <xs:element name="filmId" type="xs:integer" minOccurs="0"/>
             <xs:element name="title" type="xs:string"/>
             <xs:element name="issueYear" type="xs:integer"/>
             <xs:element name="imdb" type="xs:double"/>
@@ -35,7 +35,7 @@
     </xs:complexType>
     <xs:complexType name="serialType">
         <xs:sequence>
-            <xs:element name="serialId" type="xs:integer"/>
+            <xs:element name="serialId" type="xs:integer" minOccurs="0"/>
             <xs:element name="title" type="xs:string"/>
             <xs:element name="yearStart" type="xs:integer"/>
             <xs:element name="yearFinish" type="xs:integer"/>

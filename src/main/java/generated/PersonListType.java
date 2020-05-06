@@ -2,7 +2,9 @@
 package generated;
 
 import java.math.BigInteger;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -87,6 +89,16 @@ public class PersonListType implements EntityXml {
 
     @Override
     public ColumnsType getColumns() {
+        return null;
+    }
+
+    @Override
+    public PreparedStatement setDataAdd(PreparedStatement preparedStatement) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public PreparedStatement setDataUpdate(PreparedStatement preparedStatement) throws SQLException {
         return null;
     }
 

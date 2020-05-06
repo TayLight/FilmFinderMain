@@ -34,6 +34,27 @@ public class EntityFactory {
         return null;
     }
 
+    public PersonType createPerson(String firstName, String secondName, LocalDate birtday, String country){
+        try {
+            PersonType person = new PersonType();
+            XMLGregorianCalendar xmlGregorianCalendar = DatatypeFactory.newInstance().newXMLGregorianCalendar();
+            xmlGregorianCalendar.setYear(birtday.getYear());
+            xmlGregorianCalendar.setMonth(birtday.getMonthValue());
+            xmlGregorianCalendar.setDay(birtday.getDayOfMonth());
+            person.setFirstName(firstName);
+            person.setSecondName(secondName);
+            person.setBirthday(xmlGregorianCalendar);
+            person.setCountry(country);
+            person.setTable(personTable);
+            person.setCountColumns(BigInteger.valueOf(5));
+            person.setColumns(insertColumnsPerson());
+            return person;
+        } catch (DatatypeConfigurationException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public PersonType createPerson(){
         PersonType person = new PersonType();
         person.setTable("person");
@@ -55,6 +76,18 @@ public class EntityFactory {
         return filmType;
     }
 
+    public FilmType createFilm(String title, int issueYear, double imdb, int length){
+        FilmType filmType = new FilmType();
+        filmType.setTitle(title);
+        filmType.setIssueYear(BigInteger.valueOf(issueYear));
+        filmType.setImdb(imdb);
+        filmType.setLength(BigInteger.valueOf(length));
+        filmType.setTable("film");
+        filmType.setCountColumns(BigInteger.valueOf(5));
+        filmType.setColumns(insertColumnsFilm());
+        return filmType;
+    }
+
     public FilmType createFilm(){
         FilmType filmType = new FilmType();
         filmType.setTable("film");
@@ -66,6 +99,20 @@ public class EntityFactory {
     public SerialType createSerial(int id, String title, int yearStart, int yearFinish, int numEpisodes, int numSeasons, double imdb){
         SerialType serialType = new SerialType();
         serialType.setSerialId(BigInteger.valueOf(id));
+        serialType.setTitle(title);
+        serialType.setYearStart(BigInteger.valueOf(yearStart));
+        serialType.setYearFinish(BigInteger.valueOf(yearFinish));
+        serialType.setNumEpisodes(BigInteger.valueOf(numEpisodes));
+        serialType.setNumSeasons(BigInteger.valueOf(numSeasons));
+        serialType.setImdb(imdb);
+        serialType.setTable("serial");
+        serialType.setCountColumns(BigInteger.valueOf(7));
+        serialType.setColumns(insertColumnsSerial());
+        return serialType;
+    }
+
+    public SerialType createSerial(String title, int yearStart, int yearFinish, int numEpisodes, int numSeasons, double imdb){
+        SerialType serialType = new SerialType();
         serialType.setTitle(title);
         serialType.setYearStart(BigInteger.valueOf(yearStart));
         serialType.setYearFinish(BigInteger.valueOf(yearFinish));

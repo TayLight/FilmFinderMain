@@ -261,7 +261,8 @@ public class PersonType implements EntityXml {
     }
 
     public EntityXml getEntity(ResultSet resultSet) {
-        PersonType person = new PersonType();
+        EntityFactory ef = new EntityFactory();
+        PersonType person = ef.createPerson();
         try {
             person.setPersonId(BigInteger.valueOf(resultSet.getInt("id_person")));
             person.setFirstName(resultSet.getString("first_name"));

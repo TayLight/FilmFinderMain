@@ -2,6 +2,8 @@ package com.filmlibrary.beans;
 import criteriongenerated.Criterion;
 import criteriongenerated.CriterionListType;
 import criteriongenerated.ObjectCriterion;
+import generated.CodeType;
+import generated.EntityFactory;
 import generated.EntityXml;
 import generated.Result;
 import org.xml.sax.SAXException;
@@ -44,6 +46,7 @@ public class PersonXmlBean implements XmlBean  {
             File fileXml = new File(pathToXmlEntity);
             Result result = new Result();
             result.setEntity(entity);
+            result.setCode(CodeType.OK);
             JAXBContext context = JAXBContext.newInstance(Result.class);
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);

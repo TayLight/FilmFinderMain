@@ -312,7 +312,8 @@ public class SerialType implements EntityXml {
     }
 
     public EntityXml getEntity(ResultSet resultSet) {
-        SerialType serial = new SerialType();
+        EntityFactory ef = new EntityFactory();
+        SerialType serial = ef.createSerial();
         try {
             serial.setSerialId(BigInteger.valueOf(resultSet.getInt("id_serial")));
             serial.setTitle(resultSet.getString("title"));

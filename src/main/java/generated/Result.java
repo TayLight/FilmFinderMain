@@ -11,7 +11,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import java.math.BigInteger;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 
@@ -278,6 +280,16 @@ public class Result implements EntityXml {
 
     @Override
     public ColumnsType getColumns() {
+        return null;
+    }
+
+    @Override
+    public PreparedStatement setDataAdd(PreparedStatement preparedStatement) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public PreparedStatement setDataUpdate(PreparedStatement preparedStatement) throws SQLException {
         return null;
     }
 
