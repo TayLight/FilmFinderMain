@@ -52,7 +52,7 @@ public class DAO {
     public void addEntity(File fileXml) {
         try {
             PersonXmlBean personXmlBean = new PersonXmlBean();
-            EntityXml entity = personXmlBean.fromXmlToObject(fileXml);
+            EntityXml entity = personXmlBean.fromXmlFileToEntity(fileXml);
             StringBuilder query = new StringBuilder();
             List<String> list = entity.getColumns().getColumn();
             query.append("INSERT INTO ").append(entity.getTable()).append("(");
@@ -87,7 +87,7 @@ public class DAO {
     public void deleteEntity(File criterionFile) {
         try{
             PersonXmlBean personXmlBean = new PersonXmlBean();
-            ObjectCriterion criterion = personXmlBean.fromXmlToCriterion(criterionFile);
+            ObjectCriterion criterion = personXmlBean.fromXmlFileToCriterion(criterionFile);
             List<Criterion> criterionList = criterion.getCriterions().getPerson();
             String type = criterion.getType();
             int id = Integer.parseInt(criterionList.get(0).getValue());
@@ -128,7 +128,7 @@ public class DAO {
     public void updateEntity(File criterionFile){
         try{
             PersonXmlBean personXmlBean = new PersonXmlBean();
-            ObjectCriterion criterion = personXmlBean.fromXmlToCriterion(criterionFile);
+            ObjectCriterion criterion = personXmlBean.fromXmlFileToCriterion(criterionFile);
             List<Criterion> criterionList = criterion.getCriterions().getPerson();
             String type = criterion.getType();
             int id = Integer.parseInt(criterionList.get(0).getValue());
@@ -180,7 +180,7 @@ public class DAO {
     public File searchEntity(File criterionFile) {
         ArrayList<EntityXml> entities = new ArrayList<>();
         PersonXmlBean personXmlBean = new PersonXmlBean();
-        ObjectCriterion criterion = personXmlBean.fromXmlToCriterion(criterionFile);
+        ObjectCriterion criterion = personXmlBean.fromXmlFileToCriterion(criterionFile);
         List<Criterion> criterionList = criterion.getCriterions().getPerson();
         String type = criterion.getType();
         EntityFactory ef = new EntityFactory();
@@ -211,17 +211,17 @@ public class DAO {
             if(entity.getClass() == PersonType.class){
                 PersonListType personListType = new PersonListType();
                 personListType.setArray(entities);
-                return personXmlBean.convertEntityToXml(personListType);
+                return personXmlBean.convertEntityToXmlFile(personListType);
             }
             else if(entity.getClass()== FilmType.class){
                 FilmListType filmListType = new FilmListType();
                 filmListType.setArray(entities);
-                return personXmlBean.convertEntityToXml(filmListType);
+                return personXmlBean.convertEntityToXmlFile(filmListType);
             }
             else {
                 SerialListType serialListType = new SerialListType();
                 serialListType.setArray(entities);
-                return personXmlBean.convertEntityToXml(serialListType);
+                return personXmlBean.convertEntityToXmlFile(serialListType);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -284,17 +284,17 @@ public class DAO {
         if(entityXml.getClass() == PersonType.class){
             PersonListType personListType = new PersonListType();
             personListType.setArray(entities);
-            return personXmlBean.convertEntityToXml(personListType);
+            return personXmlBean.convertEntityToXmlFile(personListType);
         }
         else if(entityXml.getClass()== FilmType.class){
             FilmListType filmListType = new FilmListType();
             filmListType.setArray(entities);
-            return personXmlBean.convertEntityToXml(filmListType);
+            return personXmlBean.convertEntityToXmlFile(filmListType);
         }
         else {
             SerialListType serialListType = new SerialListType();
             serialListType.setArray(entities);
-            return personXmlBean.convertEntityToXml(serialListType);
+            return personXmlBean.convertEntityToXmlFile(serialListType);
         }
     }
 
@@ -316,7 +316,7 @@ public class DAO {
     public File getEntityById(File criterionFile) {
         try{
             PersonXmlBean personXmlBean = new PersonXmlBean();
-            ObjectCriterion criterion = personXmlBean.fromXmlToCriterion(criterionFile);
+            ObjectCriterion criterion = personXmlBean.fromXmlFileToCriterion(criterionFile);
             List<Criterion> criterionList = criterion.getCriterions().getPerson();
             String type = criterion.getType();
             EntityFactory ef = new EntityFactory();
@@ -336,7 +336,7 @@ public class DAO {
             if (rs.next()) {
                 entity = entity.getEntity(rs);
             }
-            return personXmlBean.convertEntityToXml(entity);
+            return personXmlBean.convertEntityToXmlFile(entity);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -359,7 +359,7 @@ public class DAO {
 
     public File getTopEntity(File criterionFile){
         PersonXmlBean personXmlBean = new PersonXmlBean();
-        ObjectCriterion criterion = personXmlBean.fromXmlToCriterion(criterionFile);
+        ObjectCriterion criterion = personXmlBean.fromXmlFileToCriterion(criterionFile);
         String type = criterion.getType();
         EntityFactory ef = new EntityFactory();
         EntityXml entity;
@@ -380,7 +380,7 @@ public class DAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return personXmlBean.convertEntityToXml(entity);
+        return personXmlBean.convertEntityToXmlFile(entity);
     }
 
     public ArrayList<EntityDB> getProjectsByPerson(String projectType, String position, int entityId, EntityDB entityDB) {
