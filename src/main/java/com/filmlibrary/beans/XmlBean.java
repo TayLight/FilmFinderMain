@@ -16,7 +16,7 @@ public interface XmlBean {
 
     Result fromXmlFileToEntity(File file);
 
-    File convertEntityToXmlFile(EntityXml entity);
+    File convertEntityToXmlFile(Result result);
 
     File convertCriterionToXmlFile(List<Criterion> criterionList, String type);
 

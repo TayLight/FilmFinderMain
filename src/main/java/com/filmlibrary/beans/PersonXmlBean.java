@@ -41,11 +41,9 @@ public class PersonXmlBean implements XmlBean  {
         return null;
     }
 
-    public File convertEntityToXmlFile(EntityXml entity) {
+    public File convertEntityToXmlFile(Result result) {
         try {
             File fileXml = new File(pathToXmlEntity);
-            Result result = new Result();
-            result.setEntity(entity);
             result.setCode(CodeType.OK);
             JAXBContext context = JAXBContext.newInstance(Result.class);
             Marshaller marshaller = context.createMarshaller();

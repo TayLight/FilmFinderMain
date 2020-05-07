@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "serialListType", namespace = "http://foobar.com", propOrder = {
     "person"
 })
-public class SerialListType implements EntityXml {
+public class SerialListType implements EntityXml, EntityListType {
 
     @XmlElement(namespace = "http://foobar.com", required = true)
     protected List<SerialType> person;

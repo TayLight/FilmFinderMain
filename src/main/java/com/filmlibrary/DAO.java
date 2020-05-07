@@ -2,6 +2,7 @@ package com.filmlibrary;
 
 import com.filmlibrary.beans.PersonXmlBean;
 import com.filmlibrary.entities.EntityDB;
+import org.w3c.dom.Document;
 import com.filmlibrary.entities.Film;
 import com.filmlibrary.entities.Person;
 import criteriongenerated.Criterion;
@@ -177,6 +178,7 @@ public class DAO {
         return entities;
     }
 
+
     public File searchEntity(File criterionFile) {
         ArrayList<EntityXml> entities = new ArrayList<>();
         PersonXmlBean personXmlBean = new PersonXmlBean();
@@ -208,21 +210,23 @@ public class DAO {
             while (resultSet.next()) {
                 entities.add(getEntity(resultSet, entity));
             }
+            Result result = new Result();
             if(entity.getClass() == PersonType.class){
                 PersonListType personListType = new PersonListType();
                 personListType.setArray(entities);
-                return personXmlBean.convertEntityToXmlFile(personListType);
+                result.setPersons(personListType);
             }
             else if(entity.getClass()== FilmType.class){
                 FilmListType filmListType = new FilmListType();
                 filmListType.setArray(entities);
-                return personXmlBean.convertEntityToXmlFile(filmListType);
+                result.setFilms(filmListType);
             }
             else {
                 SerialListType serialListType = new SerialListType();
                 serialListType.setArray(entities);
-                return personXmlBean.convertEntityToXmlFile(serialListType);
+                result.setSerials(serialListType);
             }
+            return  personXmlBean.convertEntityToXmlFile(result);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -281,21 +285,22 @@ public class DAO {
             e.printStackTrace();
         }
         PersonXmlBean personXmlBean = new PersonXmlBean();
+        Result result = new Result();
         if(entityXml.getClass() == PersonType.class){
             PersonListType personListType = new PersonListType();
             personListType.setArray(entities);
-            return personXmlBean.convertEntityToXmlFile(personListType);
+            result.setPersons(personListType);
         }
         else if(entityXml.getClass()== FilmType.class){
             FilmListType filmListType = new FilmListType();
             filmListType.setArray(entities);
-            return personXmlBean.convertEntityToXmlFile(filmListType);
         }
         else {
             SerialListType serialListType = new SerialListType();
             serialListType.setArray(entities);
-            return personXmlBean.convertEntityToXmlFile(serialListType);
+            result.setSerials(serialListType);
         }
+        return personXmlBean.convertEntityToXmlFile(result);
     }
 
     public EntityDB getEntityById(int entityId, EntityDB entityDB) {
@@ -336,7 +341,9 @@ public class DAO {
             if (rs.next()) {
                 entity = entity.getEntity(rs);
             }
-            return personXmlBean.convertEntityToXmlFile(entity);
+            Result result = new Result();
+            result.setEntity(entity);
+            return personXmlBean.convertEntityToXmlFile(result);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -380,7 +387,9 @@ public class DAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return personXmlBean.convertEntityToXmlFile(entity);
+        Result result = new Result();
+        result.setEntity(entity);
+        return personXmlBean.convertEntityToXmlFile(result);
     }
 
     public ArrayList<EntityDB> getProjectsByPerson(String projectType, String position, int entityId, EntityDB entityDB) {
@@ -465,5 +474,45 @@ public class DAO {
         DAO dao = new DAO();
         EntityFactory ef = new EntityFactory();
         PersonXmlBean personXmlBean = new PersonXmlBean();
+        Criterion criterion1 = new Criterion();
+        criterion1.setNameCriterion("Имя вашего критерия");
+        criterion1.setValue("Значение вашего критерия");
+        LinkedList<Criterion> criteria = new LinkedList<>();
+        CriterionListType criterionListType = new CriterionListType();
+        criterionListType.setPerson(criteria);
+        criteria.add(criterion1);
+        Document document = personXmlBean.convertCriterionToNode(criteria,"Какая таблица");
+        Document document1 = dao.searchEntityByCriterion(document);
+        Result result = personXmlBean.fromXmlNodeToEntity(document1);
+        personXmlBean.convertEntityToXmlFile(result);
+        //Результат смотреть тут src\main\java\com\filmlibrary\beans\xml\entity.xml
+    }
+
+    public Document searchEntityByCriterion(Document document){
+        PersonXmlBean personXmlBean = new PersonXmlBean();
+        ObjectCriterion criteria = personXmlBean.fromNodeToCriterion(document);
+        String type = criteria.getType(); // Значение типа будет название таблицы в какой искать
+        List<Criterion> criterionList = criteria.getCriterions().getPerson(); // Список критериев
+        ArrayList<EntityXml> entityXmls = new ArrayList<>(); //Итоговый список сущностей
+
+        //Todo Тут может быть ваш алгоритм
+        //В каждой сущность с окончанием на Type,
+        // есть количество столбцом и их названия по очереди,
+        // как и в обычных наших сущностях
+        Result result = new Result();
+        if(type.equals("film")){
+            FilmListType filmListType = new FilmListType();
+            filmListType.setArray(entityXmls);
+            result.setEntity(filmListType);
+        } else if(type.equals("serial")){
+            SerialListType serialListType = new SerialListType();
+            serialListType.setArray(entityXmls);
+            result.setEntity(serialListType);
+        } else {
+            PersonListType personListType = new PersonListType();
+            personListType.setArray(entityXmls);
+            result.setEntity(personListType);
+        }
+        return personXmlBean.convertEntityToNode(result);
     }
 }
