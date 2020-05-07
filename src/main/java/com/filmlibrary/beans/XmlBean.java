@@ -28,5 +28,5 @@ public interface XmlBean {
 
     public Document convertCriterionToNode(List<Criterion> criterionList, String type);
 
-    public Document convertEntityToNode(EntityXml entity);
+    public Document convertEntityToNode(Result result);
 }

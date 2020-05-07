@@ -20,6 +20,8 @@ import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.LinkedList;
 import java.util.List;
 
 @Stateless
@@ -172,14 +174,12 @@ public class PersonXmlBean implements XmlBean  {
         return null;
     }
 
-    public Document convertEntityToNode(EntityXml entity) {
+    public Document convertEntityToNode(Result result) {
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             dbf.setNamespaceAware(true);
             DocumentBuilder db = dbf.newDocumentBuilder();
             Document doc = db.newDocument();
-            Result result = new Result();
-            result.setEntity(entity);
             result.setCode(CodeType.OK);
             JAXBContext context = JAXBContext.newInstance(Result.class);
             Marshaller marshaller = context.createMarshaller();
@@ -190,5 +190,18 @@ public class PersonXmlBean implements XmlBean  {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static void  main(String[] arg){
+        PersonXmlBean personXmlBean = new PersonXmlBean();
+        Result result = new Result();
+        EntityFactory ef = new EntityFactory();
+        PersonType pt = ef.createPerson(1,"Иван", "Васильевич", LocalDate.now(),"Russian");
+        LinkedList<EntityXml> personTypes = new LinkedList<>();
+        personTypes.add(pt);
+        PersonListType personListType = new PersonListType();
+        personListType.setArray(personTypes);
+        result.setPersons(personListType);
+        personXmlBean.convertEntityToXmlFile(result);
     }
 }
