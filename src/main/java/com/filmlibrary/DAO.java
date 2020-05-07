@@ -86,7 +86,7 @@ public class DAO {
     }
 
     public void deleteEntity(File criterionFile) {
-        try{
+        try {
             PersonXmlBean personXmlBean = new PersonXmlBean();
             ObjectCriterion criterion = personXmlBean.fromXmlFileToCriterion(criterionFile);
             List<Criterion> criterionList = criterion.getCriterions().getPerson();
@@ -94,13 +94,12 @@ public class DAO {
             int id = Integer.parseInt(criterionList.get(0).getValue());
             EntityFactory ef = new EntityFactory();
             EntityXml entity;
-            if(type.equals("film")){
+            if (type.equals("film")) {
                 entity = ef.createFilm();
-            }
-            else if(type.equals("person")){
+            } else if (type.equals("person")) {
                 entity = ef.createPerson();
-            }else {
-                entity= ef.createSerial();
+            } else {
+                entity = ef.createSerial();
             }
             PreparedStatement preparedStatement = connection.prepareStatement("delete from " + entity.getTable() + " where " + entity.getColumns().getColumn().get(0) + "=?");
             preparedStatement.setInt(1, id);
@@ -126,8 +125,8 @@ public class DAO {
         }
     }
 
-    public void updateEntity(File criterionFile){
-        try{
+    public void updateEntity(File criterionFile) {
+        try {
             PersonXmlBean personXmlBean = new PersonXmlBean();
             ObjectCriterion criterion = personXmlBean.fromXmlFileToCriterion(criterionFile);
             List<Criterion> criterionList = criterion.getCriterions().getPerson();
@@ -135,13 +134,12 @@ public class DAO {
             int id = Integer.parseInt(criterionList.get(0).getValue());
             EntityFactory ef = new EntityFactory();
             EntityXml entity;
-            if(type.equals("film")){
+            if (type.equals("film")) {
                 entity = ef.createFilm();
-            }
-            else if(type.equals("person")){
+            } else if (type.equals("person")) {
                 entity = ef.createPerson();
-            }else {
-                entity= ef.createSerial();
+            } else {
+                entity = ef.createSerial();
             }
             StringBuilder query = new StringBuilder();
             query.append("update " + entity.getTable() + " set ");
@@ -187,13 +185,12 @@ public class DAO {
         String type = criterion.getType();
         EntityFactory ef = new EntityFactory();
         EntityXml entity;
-        if(type.equals("film")){
+        if (type.equals("film")) {
             entity = ef.createFilm();
-        }
-        else if(type.equals("person")){
+        } else if (type.equals("person")) {
             entity = ef.createPerson();
-        }else {
-            entity= ef.createSerial();
+        } else {
+            entity = ef.createSerial();
         }
         String column = criterionList.get(0).getValue();
         String searchItem = criterionList.get(1).getValue();
@@ -211,22 +208,20 @@ public class DAO {
                 entities.add(getEntity(resultSet, entity));
             }
             Result result = new Result();
-            if(entity.getClass() == PersonType.class){
+            if (entity.getClass() == PersonType.class) {
                 PersonListType personListType = new PersonListType();
                 personListType.setArray(entities);
                 result.setPersons(personListType);
-            }
-            else if(entity.getClass()== FilmType.class){
+            } else if (entity.getClass() == FilmType.class) {
                 FilmListType filmListType = new FilmListType();
                 filmListType.setArray(entities);
                 result.setFilms(filmListType);
-            }
-            else {
+            } else {
                 SerialListType serialListType = new SerialListType();
                 serialListType.setArray(entities);
                 result.setSerials(serialListType);
             }
-            return  personXmlBean.convertEntityToXmlFile(result);
+            return personXmlBean.convertEntityToXmlFile(result);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -270,10 +265,12 @@ public class DAO {
 
     public EntityXml getEntity(ResultSet resultSet, EntityXml
             entityXml) {
+        EntityXml test = entityXml.getEntity(resultSet);
         return entityXml.getEntity(resultSet);
+
     }
 
-    public File getAllEntity(EntityXml entityXml){
+    public File getAllEntity(EntityXml entityXml) {
         List<EntityXml> entities = new ArrayList<>();
         try {
             Statement statement = connection.createStatement();
@@ -286,16 +283,14 @@ public class DAO {
         }
         PersonXmlBean personXmlBean = new PersonXmlBean();
         Result result = new Result();
-        if(entityXml.getClass() == PersonType.class){
+        if (entityXml.getClass() == PersonType.class) {
             PersonListType personListType = new PersonListType();
             personListType.setArray(entities);
             result.setPersons(personListType);
-        }
-        else if(entityXml.getClass()== FilmType.class){
+        } else if (entityXml.getClass() == FilmType.class) {
             FilmListType filmListType = new FilmListType();
             filmListType.setArray(entities);
-        }
-        else {
+        } else {
             SerialListType serialListType = new SerialListType();
             serialListType.setArray(entities);
             result.setSerials(serialListType);
@@ -319,20 +314,19 @@ public class DAO {
     }
 
     public File getEntityById(File criterionFile) {
-        try{
+        try {
             PersonXmlBean personXmlBean = new PersonXmlBean();
             ObjectCriterion criterion = personXmlBean.fromXmlFileToCriterion(criterionFile);
             List<Criterion> criterionList = criterion.getCriterions().getPerson();
             String type = criterion.getType();
             EntityFactory ef = new EntityFactory();
             EntityXml entity;
-            if(type.equals("film")){
+            if (type.equals("film")) {
                 entity = ef.createFilm();
-            }
-            else if(type.equals("person")){
+            } else if (type.equals("person")) {
                 entity = ef.createPerson();
-            }else {
-                entity= ef.createSerial();
+            } else {
+                entity = ef.createSerial();
             }
             int entityId = Integer.parseInt(criterionList.get(0).getValue());
             PreparedStatement preparedStatement = connection.prepareStatement("select * from " + entity.getTable() + " where " + entity.getColumns().getColumn().get(0) + "=?");
@@ -350,7 +344,7 @@ public class DAO {
         return null;
     }
 
-    public EntityDB getTopEntity(EntityDB entityDB){
+    public EntityDB getTopEntity(EntityDB entityDB) {
         try {
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery("select * from " + entityDB.getTableName() + " order by id_" + entityDB.getTableName() + " desc limit 1");
@@ -364,19 +358,18 @@ public class DAO {
         return null;
     }
 
-    public File getTopEntity(File criterionFile){
+    public File getTopEntity(File criterionFile) {
         PersonXmlBean personXmlBean = new PersonXmlBean();
         ObjectCriterion criterion = personXmlBean.fromXmlFileToCriterion(criterionFile);
         String type = criterion.getType();
         EntityFactory ef = new EntityFactory();
         EntityXml entity;
-        if(type.equals("film")){
+        if (type.equals("film")) {
             entity = ef.createFilm();
-        }
-        else if(type.equals("person")){
+        } else if (type.equals("person")) {
             entity = ef.createPerson();
-        }else {
-            entity= ef.createSerial();
+        } else {
+            entity = ef.createSerial();
         }
         try {
             Statement statement = connection.createStatement();
@@ -417,7 +410,7 @@ public class DAO {
         return entities;
     }
 
-    public ArrayList<EntityDB> getPersonByProject(String projectType, String position, int entityId, EntityDB entityDB){
+    public ArrayList<EntityDB> getPersonByProject(String projectType, String position, int entityId, EntityDB entityDB) {
         ArrayList<EntityDB> entities = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("select distinct * " +
@@ -453,9 +446,9 @@ public class DAO {
         }
     }
 
-    public int getNumOfProjects(String projectType, int personId){
+    public int getNumOfProjects(String projectType, int personId) {
         int numOfProjects = 0;
-        try{
+        try {
             PreparedStatement preparedStatement = connection.prepareStatement("select count(*)" +
                     "from (select distinct id_person, id_" + projectType + " from " + projectType + "_person where id_person = ?)" +
                     " as numOfProjects");
@@ -464,7 +457,7 @@ public class DAO {
             while (resultSet.next()) {
                 numOfProjects = resultSet.getInt("count");
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return numOfProjects;
@@ -475,42 +468,85 @@ public class DAO {
         EntityFactory ef = new EntityFactory();
         PersonXmlBean personXmlBean = new PersonXmlBean();
         Criterion criterion1 = new Criterion();
-        criterion1.setNameCriterion("Имя вашего критерия");
-        criterion1.setValue("Значение вашего критерия");
+        criterion1.setNameCriterion("first_name");
+        criterion1.setValue("Леонардо");
+        Criterion criterion2 = new Criterion();
+        criterion2.setNameCriterion("country");
+        criterion2.setValue("США");
         LinkedList<Criterion> criteria = new LinkedList<>();
         CriterionListType criterionListType = new CriterionListType();
         criterionListType.setPerson(criteria);
         criteria.add(criterion1);
-        Document document = personXmlBean.convertCriterionToNode(criteria,"Какая таблица");
+        criteria.add(criterion2);
+        Document document = personXmlBean.convertCriterionToNode(criteria, "person");
         Document document1 = dao.searchEntityByCriterion(document);
         Result result = personXmlBean.fromXmlNodeToEntity(document1);
         personXmlBean.convertEntityToXmlFile(result);
         //Результат смотреть тут src\main\java\com\filmlibrary\beans\xml\entity.xml
     }
 
-    public Document searchEntityByCriterion(Document document){
+    public Document searchEntityByCriterion(Document document) {
         PersonXmlBean personXmlBean = new PersonXmlBean();
         ObjectCriterion criteria = personXmlBean.fromNodeToCriterion(document);
         String type = criteria.getType(); // Значение типа будет название таблицы в какой искать
         List<Criterion> criterionList = criteria.getCriterions().getPerson(); // Список критериев
-        ArrayList<EntityXml> entityXmls = new ArrayList<>(); //Итоговый список сущностей
+        ArrayList<EntityXml> entitiesXml = new ArrayList<>(); //Итоговый список сущностей
 
         //Todo Тут может быть ваш алгоритм
         //В каждой сущность с окончанием на Type,
         // есть количество столбцом и их названия по очереди,
         // как и в обычных наших сущностях
+
+        EntityFactory ef = new EntityFactory();
+        EntityXml entityXml;
+        if (type.equals("film")) {
+            entityXml = ef.createFilm();
+        } else if (type.equals("person")) {
+            entityXml = ef.createPerson();
+        } else {
+            entityXml = ef.createSerial();
+        }
+        try {
+            StringBuilder sqlRequest = new StringBuilder("SELECT * FROM " + entityXml.getTable() + " WHERE ");
+            for (int i = 0; i < criterionList.size(); i++) {
+                if (i != criterionList.size() - 1)
+                    sqlRequest.append(criterionList.get(i).getNameCriterion()).append(" = ? AND ");
+                else
+                    sqlRequest.append(criterionList.get(i).getNameCriterion()).append(" = ?");
+            }
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlRequest.toString());
+
+            for (int i = 0; i < criterionList.size(); i++) {
+                if (tryParse(criterionList.get(i).getValue(), "integer")) {
+                    preparedStatement.setInt(i + 1, Integer.parseInt(criterionList.get(i).getValue()));
+                } else if (tryParse(criterionList.get(i).getValue(), "double")) {
+                    preparedStatement.setDouble(i + 1, Double.parseDouble(criterionList.get(i).getValue()));
+                } else {
+                    preparedStatement.setString(i + 1, criterionList.get(i).getValue());
+                }
+            }
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                entitiesXml.add(getEntity(resultSet, entityXml));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         Result result = new Result();
-        if(type.equals("film")){
+        if (type.equals("film")) {
             FilmListType filmListType = new FilmListType();
-            filmListType.setArray(entityXmls);
+            filmListType.setArray(entitiesXml);
             result.setEntity(filmListType);
-        } else if(type.equals("serial")){
+        } else if (type.equals("serial")) {
             SerialListType serialListType = new SerialListType();
-            serialListType.setArray(entityXmls);
+            serialListType.setArray(entitiesXml);
             result.setEntity(serialListType);
         } else {
             PersonListType personListType = new PersonListType();
-            personListType.setArray(entityXmls);
+            personListType.setArray(entitiesXml);
             result.setEntity(personListType);
         }
         return personXmlBean.convertEntityToNode(result);
