@@ -478,7 +478,10 @@ public class DAO {
         criterionListType.setPerson(criteria);
         criteria.add(criterion1);
         criteria.add(criterion2);
-        Document document = personXmlBean.convertCriterionToNode(criteria, "person");
+        ObjectCriterion objectCriterion = new ObjectCriterion();
+        objectCriterion.setType("person");
+        objectCriterion.setCriterions(criterionListType);
+        Document document = personXmlBean.convertCriterionToNode(objectCriterion);
         Document document1 = dao.searchEntityByCriterion(document);
         Result result = personXmlBean.fromXmlNodeToEntity(document1);
         personXmlBean.convertEntityToXmlFile(result);

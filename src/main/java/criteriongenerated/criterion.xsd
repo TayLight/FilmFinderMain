@@ -14,7 +14,7 @@
             <xs:element name="person" type="tns:criterion" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
-    <xs:element name="objectCriterion">
+    <xs:element name="objectCriterion" xml:space="default">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="type" type="xs:string" minOccurs="1"/>

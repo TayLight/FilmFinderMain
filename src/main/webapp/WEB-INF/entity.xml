@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<result xmlns="http://foobar.com">
+    <persons>
+        <person>
+            <personId>21</personId>
+            <firstName>Кристоферs</firstName>
+            <secondName>Нолан</secondName>
+            <birthday>2020-03-12</birthday>
+            <country>США</country>
+            <table>person</table>
+            <countColumns>5</countColumns>
+            <columns>
+                <column>id_person</column>
+                <column>first_name</column>
+                <column>second_name</column>
+                <column>birthday</column>
+                <column>country</column>
+            </columns>
+        </person>
+        <person>
+            <personId>2</personId>
+            <firstName>Леонардо</firstName>
+            <secondName>Ди Каприо</secondName>
+            <birthday>2020-03-19</birthday>
+            <country>США</country>
+            <table>person</table>
+            <countColumns>5</countColumns>
+            <columns>
+                <column>id_person</column>
+                <column>first_name</column>
+                <column>second_name</column>
+                <column>birthday</column>
+                <column>country</column>
+            </columns>
+        </person>
+    </persons>
+</result>

@@ -2,6 +2,7 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
            targetNamespace="http://foobar.com"
            xmlns:tns="http://foobar.com"
+           xmlns="http://foobar.com"
            elementFormDefault="qualified">
     <xs:simpleType name="codeType">
         <xs:restriction base="xs:string">
@@ -18,7 +19,7 @@
             <xs:element name="country" type="xs:string"/>
             <xs:element name="table" type="xs:string"/>
             <xs:element name="countColumns" type="xs:integer"/>
-            <xs:element name="columns" type="tns:columnsType"/>
+            <xs:element name="columns" type="columnsType"/>
         </xs:sequence>
     </xs:complexType>
     <xs:complexType name="filmType">
@@ -67,7 +68,7 @@
             <xs:element name="column" type="xs:string" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
-    <xs:element name="result">
+    <xs:element name="result" xml:space="default">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="code" type="tns:codeType" minOccurs="1"/>

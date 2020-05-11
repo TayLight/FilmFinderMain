@@ -30,27 +30,67 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ObjectCriterion }
+     * Create an instance of {@link Result }
      * 
      */
-    public ObjectCriterion createObjectCriterion() {
-        return new ObjectCriterion();
+    public Result createResult() {
+        return new Result();
     }
 
     /**
-     * Create an instance of {@link CriterionListType }
+     * Create an instance of {@link PersonListType }
      * 
      */
-    public CriterionListType createCriterionListType() {
-        return new CriterionListType();
+    public PersonListType createPersonListType() {
+        return new PersonListType();
     }
 
     /**
-     * Create an instance of {@link Criterion }
+     * Create an instance of {@link FilmListType }
      * 
      */
-    public Criterion createCriterion() {
-        return new Criterion();
+    public FilmListType createFilmListType() {
+        return new FilmListType();
+    }
+
+    /**
+     * Create an instance of {@link SerialListType }
+     * 
+     */
+    public SerialListType createSerialListType() {
+        return new SerialListType();
+    }
+
+    /**
+     * Create an instance of {@link PersonType }
+     * 
+     */
+    public PersonType createPersonType() {
+        return new PersonType();
+    }
+
+    /**
+     * Create an instance of {@link SerialType }
+     * 
+     */
+    public SerialType createSerialType() {
+        return new SerialType();
+    }
+
+    /**
+     * Create an instance of {@link FilmType }
+     * 
+     */
+    public FilmType createFilmType() {
+        return new FilmType();
+    }
+
+    /**
+     * Create an instance of {@link ColumnsType }
+     * 
+     */
+    public ColumnsType createColumnsType() {
+        return new ColumnsType();
     }
 
 }

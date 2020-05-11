@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import java.io.Serializable;
 
 
 /**
@@ -34,7 +35,7 @@ import javax.xml.bind.annotation.XmlType;
     "criterions"
 })
 @XmlRootElement(name = "objectCriterion", namespace = "http://foobar.com")
-public class ObjectCriterion {
+public class ObjectCriterion  implements Serializable {
 
     @XmlElement(namespace = "http://foobar.com", required = true)
     protected String type;

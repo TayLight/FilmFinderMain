@@ -1,4 +1,5 @@
 package com.filmlibrary.beans;
+import com.filmlibrary.DAO;
 import com.filmlibrary.entities.Person;
 import criteriongenerated.Criterion;
 import criteriongenerated.CriterionListType;
@@ -25,11 +26,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Stateless
-public class PersonXmlBean implements XmlBean  {
-    private String pathToXmlEntity = "src\\main\\java\\com\\filmlibrary\\beans\\xml\\entity.xml";
-    private String pathToXmlCriterion = "src\\main\\java\\com\\filmlibrary\\beans\\xml\\criterion.xml";
-    private String pathToXsdCriterion = "src\\main\\java\\com\\filmlibrary\\beans\\xml\\criterion.xsd";
-    private String pathToXsdEntity = "src\\main\\java\\com\\filmlibrary\\beans\\xml\\entity.xsd";
+public class PersonXmlBean implements XmlBean {
+    private static String pathToXmlEntity = "src\\main\\webapp\\WEB-INF\\entity.xml";
+    private static String pathToXmlCriterion = "src\\main\\webapp\\WEB-INF\\criterion.xml";
+    private static String pathToXsdCriterion = "src\\main\\java\\criteriongenerated\\criterion.xsd";
+    private static String pathToXsdEntity = "src\\main\\java\\generated\\entity.xsd";
 
     public Result fromXmlFileToEntity(File file) {
         try {
@@ -46,10 +47,10 @@ public class PersonXmlBean implements XmlBean  {
     public File convertEntityToXmlFile(Result result) {
         try {
             File fileXml = new File(pathToXmlEntity);
-            result.setCode(CodeType.OK);
             JAXBContext context = JAXBContext.newInstance(Result.class);
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+
             marshaller.marshal(result, fileXml);
             return fileXml;
         } catch (JAXBException e) {
@@ -111,14 +112,9 @@ public class PersonXmlBean implements XmlBean  {
         return null;
     }
 
-    public File convertCriterionToXmlFile(List<Criterion> criterionList, String type) {
+    public File convertCriterionToXmlFile(ObjectCriterion objectCriterion) {
         try {
-            CriterionListType criterionListType = new CriterionListType();
             File xmlFile = new File(pathToXmlCriterion);
-            criterionListType.setPerson(criterionList);
-            ObjectCriterion objectCriterion = new ObjectCriterion();
-            objectCriterion.setType(type);
-            objectCriterion.setCriterions(criterionListType);
             JAXBContext context = JAXBContext.newInstance(ObjectCriterion.class);
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
@@ -130,17 +126,12 @@ public class PersonXmlBean implements XmlBean  {
         return null;
     }
 
-    public Document convertCriterionToNode(List<Criterion> criterionList, String type){
+    public Document convertCriterionToNode(ObjectCriterion objectCriterion){
         try {
-            CriterionListType criterionListType = new CriterionListType();
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             dbf.setNamespaceAware(true);
             DocumentBuilder db = dbf.newDocumentBuilder();
             Document doc = db.newDocument();
-            criterionListType.setPerson(criterionList);
-            ObjectCriterion objectCriterion = new ObjectCriterion();
-            objectCriterion.setType(type);
-            objectCriterion.setCriterions(criterionListType);
             JAXBContext context = JAXBContext.newInstance(ObjectCriterion.class);
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
@@ -180,7 +171,6 @@ public class PersonXmlBean implements XmlBean  {
             dbf.setNamespaceAware(true);
             DocumentBuilder db = dbf.newDocumentBuilder();
             Document doc = db.newDocument();
-            result.setCode(CodeType.OK);
             JAXBContext context = JAXBContext.newInstance(Result.class);
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
@@ -193,7 +183,7 @@ public class PersonXmlBean implements XmlBean  {
     }
 
     public static void  main(String[] arg){
-        PersonXmlBean personXmlBean = new PersonXmlBean();
+       /* PersonXmlBean personXmlBean = new PersonXmlBean();
         Result result = new Result();
         EntityFactory ef = new EntityFactory();
         PersonType pt = ef.createPerson(1,"Иван", "Васильевич", LocalDate.now(),"Russian");
@@ -202,6 +192,23 @@ public class PersonXmlBean implements XmlBean  {
         PersonListType personListType = new PersonListType();
         personListType.setArray(personTypes);
         result.setPersons(personListType);
+        personXmlBean.convertEntityToXmlFile(result);
+
+        */
+       PersonXmlBean personXmlBean = new PersonXmlBean();
+       Criterion criterion = new Criterion();
+       criterion.setNameCriterion("country");
+       criterion.setValue("США");
+       LinkedList<Criterion> criteria = new LinkedList<>();
+       criteria.add(criterion);
+        DAO dao = new DAO();
+        ObjectCriterion objectCriterion = new ObjectCriterion();
+        CriterionListType criterionListType = new CriterionListType();
+        criterionListType.setPerson(criteria);
+        objectCriterion.setCriterions(criterionListType);
+        objectCriterion.setType("person");
+        Document document= dao.searchEntityByCriterion(personXmlBean.convertCriterionToNode(objectCriterion));
+        Result result = personXmlBean.fromXmlNodeToEntity(document);
         personXmlBean.convertEntityToXmlFile(result);
     }
 }

@@ -18,7 +18,7 @@ public interface XmlBean {
 
     File convertEntityToXmlFile(Result result);
 
-    File convertCriterionToXmlFile(List<Criterion> criterionList, String type);
+    File convertCriterionToXmlFile(ObjectCriterion objectCriterion);
 
     ObjectCriterion fromXmlFileToCriterion(File file);
 
@@ -26,7 +26,7 @@ public interface XmlBean {
 
     public ObjectCriterion fromNodeToCriterion(Document doc);
 
-    public Document convertCriterionToNode(List<Criterion> criterionList, String type);
+    public Document convertCriterionToNode(ObjectCriterion objectCriterion);
 
     public Document convertEntityToNode(Result result);
 }
