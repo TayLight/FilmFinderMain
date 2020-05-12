@@ -1,29 +1,25 @@
 package com.filmlibrary.beans;
+
 import com.filmlibrary.DAO;
-import com.filmlibrary.entities.Person;
 import criteriongenerated.Criterion;
 import criteriongenerated.CriterionListType;
 import criteriongenerated.ObjectCriterion;
 import generated.*;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
-
 import javax.ejb.Stateless;
 import javax.xml.XMLConstants;
 import javax.xml.bind.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.soap.Node;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.LinkedList;
-import java.util.List;
 
 @Stateless
 public class PersonXmlBean implements XmlBean {
@@ -47,6 +43,7 @@ public class PersonXmlBean implements XmlBean {
     public File convertEntityToXmlFile(Result result) {
         try {
             File fileXml = new File(pathToXmlEntity);
+            result.setCode(CodeType.OK);
             JAXBContext context = JAXBContext.newInstance(Result.class);
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);

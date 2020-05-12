@@ -3,31 +3,30 @@
     <xsl:template match="/">
         <html>
             <body>
-                <h2>Результат выборки из Базы данных</h2>
                 <table border="1">
                     <tr bgcolor="#9acd32">
                         <th align="left">Id</th>
-                        <th align="left">Name</th>
-                        <th align="left">Family</th>
-                        <th align="left">Birthday</th>
-                        <th align="left">Country</th>
+                        <th align="left">Title</th>
+                        <th align="left">Issue year</th>
+                        <th align="left">IMDB</th>
+                        <th align="left">Length</th>
                     </tr>
-                    <xsl:for-each  select="*/person" >
+                    <xsl:for-each  select="*/film" >
                         <tr>
                             <td>
-                                <xsl:value-of select="personId"/>
+                                <xsl:value-of select="filmId"/>
                             </td>
                             <td>
-                                <xsl:value-of select="firstName"/>
+                                <xsl:value-of select="title"/>
                             </td>
                             <td>
-                                <xsl:value-of select="secondName"/>
+                                <xsl:value-of select="issueYear"/>
                             </td>
                             <td>
-                                <xsl:value-of select="birtday"/>
+                                <xsl:value-of select="imdb"/>
                             </td>
                             <td>
-                                <xsl:value-of select="country"/>
+                                <xsl:value-of select="length"/>
                             </td>
                         </tr>
                     </xsl:for-each>

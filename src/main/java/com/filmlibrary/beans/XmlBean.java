@@ -11,7 +11,7 @@ import javax.ejb.Remote;
 import java.io.File;
 import java.util.List;
 
-@Remote
+@Local
 public interface XmlBean {
 
     Result fromXmlFileToEntity(File file);

@@ -127,6 +127,7 @@
         <button type="submit" name="action" value="Copy">Копировать</button>
     </div>
 </form>
+<button onclick="location.href ='inputFilmCriterion.jsp'">Экспорт в Xml</button>
 <%
     out.print("<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\"><html>");
     out.print("<body>");
