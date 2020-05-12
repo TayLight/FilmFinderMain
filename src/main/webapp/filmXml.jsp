@@ -17,6 +17,7 @@
     <title>FilmFinder:Личности теперь в XML!</title>
 </head>
 <%
+    request.setCharacterEncoding("UTF-8");
     Context context = new InitialContext();
     XmlBean personBeanObject = (XmlBean) javax.rmi.PortableRemoteObject.narrow(context.lookup("java:global/FilmFinder-1.0/PersonXmlBean"), XmlBean.class);
     EntityFactory ef = new EntityFactory();
@@ -66,9 +67,9 @@
 <jsp:include page="_header.jsp"></jsp:include>
 <jsp:include page="_menu.jsp"></jsp:include>
 <c:import url="filmStyle.xsl" var="xslt"/>
-<c:import url="WEB-INF/entity.xml" var="entity"/>
+<c:import url="entity.xml" var="entity"/>
 <x:transform xml="${entity}" xslt="${xslt}"/>
-<a href="WEB-INF/entity.xml" download>Скачать</a>
+<a href="entity.xml" download>Скачать</a>
 <jsp:include page="_footer.jsp"></jsp:include>
 </body>
 </html>

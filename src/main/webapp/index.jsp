@@ -15,7 +15,6 @@
     <li>Актеров</li>
     <li>Режиссеров</li>
 </ul>
-<button onclick="location.href ='personXml.jsp'">Test</button>
 <jsp:include page="_footer.jsp"/>
 </body>
 </html>

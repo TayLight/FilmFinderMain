@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0" xmlns="http://foobar.com" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:x="http://foobar.com" exclude-result-prefixes="x">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:x="http://foobar.com" exclude-result-prefixes="x">
     <xsl:template match="/">
         <html>
             <body>
@@ -11,22 +12,22 @@
                         <th align="left">IMDB</th>
                         <th align="left">Length</th>
                     </tr>
-                    <xsl:for-each  select="*/film" >
+                    <xsl:for-each  select="//x:film" >
                         <tr>
                             <td>
-                                <xsl:value-of select="filmId"/>
+                                <xsl:value-of select="x:filmId"/>
                             </td>
                             <td>
-                                <xsl:value-of select="title"/>
+                                <xsl:value-of select="x:title"/>
                             </td>
                             <td>
-                                <xsl:value-of select="issueYear"/>
+                                <xsl:value-of select="x:issueYear"/>
                             </td>
                             <td>
-                                <xsl:value-of select="imdb"/>
+                                <xsl:value-of select="x:imdb"/>
                             </td>
                             <td>
-                                <xsl:value-of select="length"/>
+                                <xsl:value-of select="x:length"/>
                             </td>
                         </tr>
                     </xsl:for-each>

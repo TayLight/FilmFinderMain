@@ -14,7 +14,7 @@
 </head>
 <body>
 <c:import url="personStyle.xsl" var="xslt"/>
-<c:import url="WEB-INF/entity.xml" var="articles"/>
+<c:import url="entity.xml" var="articles"/>
 <x:transform xml="${articles}" xslt="${xslt}"/>
 </body>
 </html>

@@ -23,7 +23,7 @@ import java.util.LinkedList;
 
 @Stateless
 public class PersonXmlBean implements XmlBean {
-    private static String pathToXmlEntity = "src\\main\\webapp\\WEB-INF\\entity.xml";
+    private static String pathToXmlEntity = "C:\\Users\\Dogore\\Documents\\NetCracker\\MainFilmFinder\\FilmFinder\\src\\main\\webapp\\entity.xml";
     private static String pathToXmlCriterion = "src\\main\\webapp\\WEB-INF\\criterion.xml";
     private static String pathToXsdCriterion = "src\\main\\java\\criteriongenerated\\criterion.xsd";
     private static String pathToXsdEntity = "src\\main\\java\\generated\\entity.xsd";
@@ -195,7 +195,7 @@ public class PersonXmlBean implements XmlBean {
        PersonXmlBean personXmlBean = new PersonXmlBean();
        Criterion criterion = new Criterion();
        criterion.setNameCriterion("country");
-       criterion.setValue("США");
+       criterion.setValue("Россия");
        LinkedList<Criterion> criteria = new LinkedList<>();
        criteria.add(criterion);
         DAO dao = new DAO();
