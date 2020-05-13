@@ -14,22 +14,28 @@
                         <th align="left">Number of seasons</th>
                         <th align="left">Imdb</th>
                     </tr>
-                    <xsl:for-each  select="//x:serial" >
+                    <xsl:for-each  select="//x:person" >
                         <tr>
                             <td>
-                                <xsl:value-of select="x:filmId"/>
+                                <xsl:value-of select="x:serialId"/>
                             </td>
                             <td>
                                 <xsl:value-of select="x:title"/>
                             </td>
                             <td>
-                                <xsl:value-of select="x:issueYear"/>
+                                <xsl:value-of select="x:yearStart"/>
+                            </td>
+                            <td>
+                                <xsl:value-of select="x:yearFinish"/>
+                            </td>
+                            <td>
+                                <xsl:value-of select="x:numEpisodes"/>
+                            </td>
+                            <td>
+                                <xsl:value-of select="x:numSeasons"/>
                             </td>
                             <td>
                                 <xsl:value-of select="x:imdb"/>
-                            </td>
-                            <td>
-                                <xsl:value-of select="x:length"/>
                             </td>
                         </tr>
                     </xsl:for-each>

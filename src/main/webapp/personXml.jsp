@@ -16,6 +16,7 @@
 <head>
     <title>FilmFinder:Личности теперь в XML!</title>
 </head>
+<%@page pageEncoding="UTF-8"%>
 <%
     request.setCharacterEncoding("UTF-8");
     Context context = new InitialContext();

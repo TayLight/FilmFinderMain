@@ -69,7 +69,7 @@
     criterionListType.setPerson(criteria);
     ObjectCriterion objectCriterion = new ObjectCriterion();
     objectCriterion.setCriterions(criterionListType);
-    objectCriterion.setType("person");
+    objectCriterion.setType("serial");
     Document docCriterion= personBeanObject.convertCriterionToNode(objectCriterion);
     Document docResult = dao.searchEntityByCriterion(docCriterion);
     Result result = personBeanObject.fromXmlNodeToEntity(docResult);
