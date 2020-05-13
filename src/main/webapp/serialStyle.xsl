@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:x="http://foobar.com" exclude-result-prefixes="x">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:x="http://foobar.com" exclude-result-prefixes="x">
     <xsl:template match="/">
         <html>
             <body>
@@ -16,25 +17,19 @@
                     <xsl:for-each  select="//x:serial" >
                         <tr>
                             <td>
-                                <xsl:value-of select="x:serialId"/>
+                                <xsl:value-of select="x:filmId"/>
                             </td>
                             <td>
                                 <xsl:value-of select="x:title"/>
                             </td>
                             <td>
-                                <xsl:value-of select="x:yearStart"/>
-                            </td>
-                            <td>
-                                <xsl:value-of select="x:yearFinish"/>
-                            </td>
-                            <td>
-                                <xsl:value-of select="x:numEpisodes"/>
-                            </td>
-                            <td>
-                                <xsl:value-of select="x:numSeasons"/>
+                                <xsl:value-of select="x:issueYear"/>
                             </td>
                             <td>
                                 <xsl:value-of select="x:imdb"/>
+                            </td>
+                            <td>
+                                <xsl:value-of select="x:length"/>
                             </td>
                         </tr>
                     </xsl:for-each>

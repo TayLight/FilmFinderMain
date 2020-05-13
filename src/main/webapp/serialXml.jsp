@@ -24,49 +24,42 @@
     DAO dao = new DAO();
     LinkedList<Criterion> criteria = new LinkedList<>();
     if(!request.getParameter("serialId").equals("")){
-        out.print("Я тут");
         Criterion criterionId = new Criterion();
         criterionId.setNameCriterion("id_serial");
         criterionId.setValue(request.getParameter("serialId"));
         criteria.add(criterionId);
     }
     if(!request.getParameter("title").equals("")){
-        out.print("Я тут");
         Criterion criterionFirstName = new Criterion();
         criterionFirstName.setNameCriterion("title");
         criterionFirstName.setValue(request.getParameter("title"));
         criteria.add(criterionFirstName);
     }
     if(!request.getParameter("yearStart").equals("")){
-        out.print("Я тут");
         Criterion criterionSecondName = new Criterion();
         criterionSecondName.setNameCriterion("year_start");
         criterionSecondName.setValue(request.getParameter("yearStart"));
         criteria.add(criterionSecondName);
     }
     if(!request.getParameter("yearFinish").equals("")){
-        out.print("Я тут");
         Criterion criterionBirthday = new Criterion();
         criterionBirthday.setNameCriterion("year_finish");
         criterionBirthday.setValue(request.getParameter("yearFinish"));
         criteria.add(criterionBirthday);
     }
     if(!request.getParameter("numEpisodes").equals("")){
-        out.print("Я тут");
         Criterion criterionCountry = new Criterion();
         criterionCountry.setNameCriterion("num_of_episodes");
         criterionCountry.setValue(request.getParameter("numEpisodes"));
         criteria.add(criterionCountry);
     }
     if(!request.getParameter("numSeasons").equals("")){
-        out.print("Я тут");
         Criterion criterionCountry = new Criterion();
         criterionCountry.setNameCriterion("num_of_seasons");
         criterionCountry.setValue(request.getParameter("numSeasons"));
         criteria.add(criterionCountry);
     }
     if(!request.getParameter("imdb").equals("")){
-        out.print("Я тут");
         Criterion criterionCountry = new Criterion();
         criterionCountry.setNameCriterion("imdb");
         criterionCountry.setValue(request.getParameter("imdb"));

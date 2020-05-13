@@ -23,31 +23,31 @@
     EntityFactory ef = new EntityFactory();
     DAO dao = new DAO();
     LinkedList<Criterion> criteria = new LinkedList<>();
-    if(request.getParameter("filmId")!=null){
+    if(!request.getParameter("filmId").equals("")){
         Criterion criterionId = new Criterion();
         criterionId.setNameCriterion("id_film");
         criterionId.setValue(request.getParameter("filmId"));
         criteria.add(criterionId);
     }
-    if(request.getParameter("title")!=null){
+    if(!request.getParameter("title").equals("")){
         Criterion criterionFirstName = new Criterion();
         criterionFirstName.setNameCriterion("title");
         criterionFirstName.setValue(request.getParameter("title"));
         criteria.add(criterionFirstName);
     }
-    if(request.getParameter("issueYear")!=null){
+    if(!request.getParameter("issueYear").equals("")){
         Criterion criterionSecondName = new Criterion();
         criterionSecondName.setNameCriterion("issue_year");
         criterionSecondName.setValue(request.getParameter("issueYear"));
         criteria.add(criterionSecondName);
     }
-    if(request.getParameter("imdb")!=null){
+    if(!request.getParameter("imdb").equals("")){
         Criterion criterionBirthday = new Criterion();
         criterionBirthday.setNameCriterion("imdb");
         criterionBirthday.setValue(request.getParameter("imdb"));
         criteria.add(criterionBirthday);
     }
-    if(request.getParameter("length")!=null){
+    if(!request.getParameter("length").equals("")){
         Criterion criterionCountry = new Criterion();
         criterionCountry.setNameCriterion("length");
         criterionCountry.setValue(request.getParameter("length"));
