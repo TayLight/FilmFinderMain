@@ -25,7 +25,9 @@ public class DAO {
     private Connection connection;
 
     public DAO() {
-        connection = DBUtil.getConnection();
+        //connection = DBUtil.getConnection();
+        ConnectionPool pool = new ConnectionPool();
+        connection = pool.getConnection();
     }
 
     public void addEntity(EntityDB entity) {
