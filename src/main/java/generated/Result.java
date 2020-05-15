@@ -15,6 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -301,5 +302,24 @@ public class Result implements EntityXml {
     @Override
     public void setArray(List<EntityXml> entity) {
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Result result = (Result) o;
+        return code == result.code &&
+                Objects.equals(persons, result.persons) &&
+                Objects.equals(films, result.films) &&
+                Objects.equals(serials, result.serials) &&
+                Objects.equals(person, result.person) &&
+                Objects.equals(serial, result.serial) &&
+                Objects.equals(film, result.film);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(code, persons, films, serials, person, serial, film);
     }
 }

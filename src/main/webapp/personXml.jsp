@@ -1,14 +1,15 @@
 <%@ page import="com.filmlibrary.DAO" %>
-<%@ page import="generated.EntityFactory" %>
 <%@ page import="com.filmlibrary.beans.XmlBean" %>
-<%@ page import="javax.naming.InitialContext" %>
-<%@ page import="javax.naming.Context" %>
-<%@ page import="java.util.LinkedList" %>
 <%@ page import="criteriongenerated.Criterion" %>
-<%@ page import="org.w3c.dom.Document" %>
-<%@ page import="generated.Result" %>
 <%@ page import="criteriongenerated.CriterionListType" %>
 <%@ page import="criteriongenerated.ObjectCriterion" %>
+<%@ page import="generated.EntityFactory" %>
+<%@ page import="generated.Result" %>
+<%@ page import="org.w3c.dom.Document" %>
+<%@ page import="javax.naming.Context" %>
+<%@ page import="javax.naming.InitialContext" %>
+<%@ page import="java.io.File" %>
+<%@ page import="java.util.LinkedList" %>
 <%@ taglib prefix="x" uri="http://java.sun.com/jsp/jstl/xml" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -17,6 +18,10 @@
     <title>FilmFinder:Личности теперь в XML!</title>
 </head>
 <%@page pageEncoding="UTF-8"%>
+<body>
+<jsp:include page="_header.jsp"></jsp:include>
+<jsp:include page="_menu.jsp"></jsp:include>
+
 <%
     request.setCharacterEncoding("UTF-8");
     Context context = new InitialContext();
@@ -62,15 +67,11 @@
     Document docCriterion= personBeanObject.convertCriterionToNode(objectCriterion);
     Document docResult = dao.searchEntityByCriterion(docCriterion);
     Result result = personBeanObject.fromXmlNodeToEntity(docResult);
-    personBeanObject.convertEntityToXmlFile(result);
+    File fileWithXml = personBeanObject.convertEntityToXmlFile(result);
+    pageContext.include(personBeanObject.tranformXmlIntoHtml(fileWithXml
+            ,new File("C:\\Users\\Dogore\\Documents\\NetCracker\\MainFilmFinder\\FilmFinder\\src\\main\\webapp\\personStyle.xsl")).getName());
+    out.print("<a href=\"xml/"+fileWithXml.getName()+"\" download>Скачать</a>");
 %>
-<body>
-<jsp:include page="_header.jsp"></jsp:include>
-<jsp:include page="_menu.jsp"></jsp:include>
-<c:import url="personStyle.xsl" var="xslt"/>
-<c:import url="entity.xml" var="entity"/>
-<x:transform xml="${entity}" xslt="${xslt}"/>
-<a href="entity.xml" download>Скачать</a>
 <jsp:include page="_footer.jsp"></jsp:include>
 </body>
 </html>

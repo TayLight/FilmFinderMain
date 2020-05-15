@@ -1,70 +1,86 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <result xmlns="http://foobar.com">
     <code>OK</code>
-    <persons>
+    <serials>
         <person>
-            <personId>23</personId>
-            <firstName>Денис</firstName>
-            <secondName>Чистяков</secondName>
-            <birthday>2020-03-13</birthday>
-            <country>Россия</country>
-            <table>person</table>
-            <countColumns>5</countColumns>
+            <serialId>1</serialId>
+            <title>Очень странные дела</title>
+            <yearStart>2015</yearStart>
+            <yearFinish>2020</yearFinish>
+            <numEpisodes>12</numEpisodes>
+            <numSeasons>5</numSeasons>
+            <imdb>9.1</imdb>
+            <table>serial</table>
+            <countColumns>7</countColumns>
             <columns>
-                <column>id_person</column>
-                <column>first_name</column>
-                <column>second_name</column>
-                <column>birthday</column>
-                <column>country</column>
+                <column>id_serial</column>
+                <column>title</column>
+                <column>year_start</column>
+                <column>year_finish</column>
+                <column>num_of_episodes</column>
+                <column>num_of_seasons</column>
+                <column>imdb</column>
             </columns>
         </person>
         <person>
-            <personId>28</personId>
-            <firstName>Денис</firstName>
-            <secondName>Чистяков</secondName>
-            <birthday>2020-03-18</birthday>
-            <country>Россия</country>
-            <table>person</table>
-            <countColumns>5</countColumns>
+            <serialId>3</serialId>
+            <title>Очень странные дела</title>
+            <yearStart>2015</yearStart>
+            <yearFinish>2020</yearFinish>
+            <numEpisodes>12</numEpisodes>
+            <numSeasons>5</numSeasons>
+            <imdb>9.2</imdb>
+            <table>serial</table>
+            <countColumns>7</countColumns>
             <columns>
-                <column>id_person</column>
-                <column>first_name</column>
-                <column>second_name</column>
-                <column>birthday</column>
-                <column>country</column>
+                <column>id_serial</column>
+                <column>title</column>
+                <column>year_start</column>
+                <column>year_finish</column>
+                <column>num_of_episodes</column>
+                <column>num_of_seasons</column>
+                <column>imdb</column>
             </columns>
         </person>
         <person>
-            <personId>29</personId>
-            <firstName>Денис</firstName>
-            <secondName>Чистяков</secondName>
-            <birthday>2020-03-11</birthday>
-            <country>Россия</country>
-            <table>person</table>
-            <countColumns>5</countColumns>
+            <serialId>4</serialId>
+            <title>Крайне непонятные события</title>
+            <yearStart>2015</yearStart>
+            <yearFinish>2020</yearFinish>
+            <numEpisodes>12</numEpisodes>
+            <numSeasons>5</numSeasons>
+            <imdb>9.1</imdb>
+            <table>serial</table>
+            <countColumns>7</countColumns>
             <columns>
-                <column>id_person</column>
-                <column>first_name</column>
-                <column>second_name</column>
-                <column>birthday</column>
-                <column>country</column>
+                <column>id_serial</column>
+                <column>title</column>
+                <column>year_start</column>
+                <column>year_finish</column>
+                <column>num_of_episodes</column>
+                <column>num_of_seasons</column>
+                <column>imdb</column>
             </columns>
         </person>
         <person>
-            <personId>31</personId>
-            <firstName>Денис</firstName>
-            <secondName>Чистяков</secondName>
-            <birthday>2020-03-11</birthday>
-            <country>Россия</country>
-            <table>person</table>
-            <countColumns>5</countColumns>
+            <serialId>7</serialId>
+            <title>Очень странные дела</title>
+            <yearStart>2015</yearStart>
+            <yearFinish>2020</yearFinish>
+            <numEpisodes>12</numEpisodes>
+            <numSeasons>5</numSeasons>
+            <imdb>9.2</imdb>
+            <table>serial</table>
+            <countColumns>7</countColumns>
             <columns>
-                <column>id_person</column>
-                <column>first_name</column>
-                <column>second_name</column>
-                <column>birthday</column>
-                <column>country</column>
+                <column>id_serial</column>
+                <column>title</column>
+                <column>year_start</column>
+                <column>year_finish</column>
+                <column>num_of_episodes</column>
+                <column>num_of_seasons</column>
+                <column>imdb</column>
             </columns>
         </person>
-    </persons>
+    </serials>
 </result>

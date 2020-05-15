@@ -13,8 +13,8 @@
     <title>Title</title>
 </head>
 <body>
-<c:import url="personStyle.xsl" var="xslt"/>
-<c:import url="entity.xml" var="articles"/>
-<x:transform xml="${articles}" xslt="${xslt}"/>
+<%
+    pageContext.include("personXML.html");
+%>
 </body>
 </html>

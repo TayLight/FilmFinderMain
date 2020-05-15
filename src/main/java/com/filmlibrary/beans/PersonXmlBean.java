@@ -5,6 +5,7 @@ import criteriongenerated.Criterion;
 import criteriongenerated.CriterionListType;
 import criteriongenerated.ObjectCriterion;
 import generated.*;
+import generated.Result;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 import javax.ejb.Stateless;
@@ -13,20 +14,23 @@ import javax.xml.bind.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.*;
+import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.LinkedList;
 
 @Stateless
 public class PersonXmlBean implements XmlBean {
-    private static String pathToXmlEntity = "C:\\Users\\Dogore\\Documents\\NetCracker\\MainFilmFinder\\FilmFinder\\src\\main\\webapp\\entity.xml";
+    private static String pathToXmlEntity = "C:\\Users\\Dogore\\Documents\\NetCracker\\MainFilmFinder\\FilmFinder\\src\\main\\webapp\\xml\\";
     private static String pathToXmlCriterion = "src\\main\\webapp\\WEB-INF\\criterion.xml";
     private static String pathToXsdCriterion = "src\\main\\java\\criteriongenerated\\criterion.xsd";
     private static String pathToXsdEntity = "src\\main\\java\\generated\\entity.xsd";
+
+
 
     public Result fromXmlFileToEntity(File file) {
         try {
@@ -42,15 +46,16 @@ public class PersonXmlBean implements XmlBean {
 
     public File convertEntityToXmlFile(Result result) {
         try {
-            File fileXml = new File(pathToXmlEntity);
+            String pathToFile = getPathToXmlEntity()+result.hashCode()+".xml";
+            File fileXml = new File(pathToFile);
+            fileXml.createNewFile();
             result.setCode(CodeType.OK);
             JAXBContext context = JAXBContext.newInstance(Result.class);
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-
             marshaller.marshal(result, fileXml);
             return fileXml;
-        } catch (JAXBException e) {
+        } catch (JAXBException | IOException e) {
             e.printStackTrace();
         }
         return null;
@@ -95,6 +100,10 @@ public class PersonXmlBean implements XmlBean {
         Validator validator = schema.newValidator();       //создаем валидатор
         validator.validate(new StreamSource(file));       //Проверяем, если что то не так прокинет ошибку
         return true;
+    }
+
+    public String getPathToXmlEntity(){
+        return pathToXmlEntity;
     }
 
     public ObjectCriterion fromXmlFileToCriterion(File file) {
@@ -174,6 +183,24 @@ public class PersonXmlBean implements XmlBean {
             marshaller.marshal(result, doc);
             return doc;
         } catch (JAXBException | ParserConfigurationException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public File tranformXmlIntoHtml(File xmlFile, File xslFile) {
+        try {
+            TransformerFactory tFactory=TransformerFactory.newInstance();
+            Source xslDoc=new StreamSource(xslFile);
+            Source xmlDoc=new StreamSource(xmlFile);
+            File fileHtml = new File("C:\\Users\\Dogore\\Documents\\NetCracker\\MainFilmFinder\\FilmFinder\\src\\main\\webapp\\personXML.html");
+            OutputStream htmlFile=new FileOutputStream(fileHtml);
+            Transformer trasform=tFactory.newTransformer(xslDoc);
+            trasform.transform(xmlDoc, new StreamResult(htmlFile));
+            return fileHtml;
+        } catch (FileNotFoundException | TransformerException | TransformerFactoryConfigurationError e)
+        {
             e.printStackTrace();
         }
         return null;

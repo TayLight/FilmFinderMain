@@ -74,6 +74,7 @@
     Document docResult = dao.searchEntityByCriterion(docCriterion);
     Result result = personBeanObject.fromXmlNodeToEntity(docResult);
     personBeanObject.convertEntityToXmlFile(result);
+
 %>
 <body>
 <jsp:include page="_header.jsp"></jsp:include>

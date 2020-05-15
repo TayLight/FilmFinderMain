@@ -22,11 +22,15 @@ public interface XmlBean {
 
     ObjectCriterion fromXmlFileToCriterion(File file);
 
-    public Result fromXmlNodeToEntity(Document doc);
+    Result fromXmlNodeToEntity(Document doc);
 
-    public ObjectCriterion fromNodeToCriterion(Document doc);
+    ObjectCriterion fromNodeToCriterion(Document doc);
 
-    public Document convertCriterionToNode(ObjectCriterion objectCriterion);
+    Document convertCriterionToNode(ObjectCriterion objectCriterion);
 
-    public Document convertEntityToNode(Result result);
+    Document convertEntityToNode(Result result);
+
+    File tranformXmlIntoHtml(File xmlFile, File xslFile);
+
+    String getPathToXmlEntity();
 }
